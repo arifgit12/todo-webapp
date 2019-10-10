@@ -6,6 +6,10 @@
 		<title>Learning JSP</title>
 	</head>
 	<body>
-		Welcome ${name}
+		<H1>Welcome ${name}</H1>
+		<div>
+			Your Todos are
+			${todos}
+		</div>
 	</body>
 </html>
