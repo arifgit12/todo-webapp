@@ -6,8 +6,6 @@
 		<title>Learning JSP</title>
 	</head>
 	<body>
-		<form action="/login.do" method="POST">
-			Name : <input type="text" /> <input type="submit" />
-		</form>
+		Welcome ${name}
 	</body>
 </html>
