@@ -28,10 +28,11 @@ public class TodoServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String todo = request.getParameter("todo");
+		String category = request.getParameter("category");
 		if ("".equals(todo)) {
 			request.setAttribute("errorMessage", "Enter a valid todo");
 		} else {
-			todoService.addTodo(new Todo(todo));
+			todoService.addTodo(new Todo(todo, category));
 		}
 		request.setAttribute("todos", todoService.retrieveTodos());
 		request.getRequestDispatcher("/WEB-INF/views/todo.jsp").forward(request, response);
