@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Yahoo!!</title>
+		<title>ToDo</title>
 	</head>
 	<body>
 		<H1>Welcome ${name}</H2>

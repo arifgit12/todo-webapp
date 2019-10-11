@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Learning JSP</title>
+		<title>ToDo</title>
 	</head>
 	<body>
 		<p><font color="red">${errorMessage}</font></p>
