@@ -47,7 +47,7 @@
 			<form action="/login.do" method="POST">
 				Name : <input name="name" type="text" />
 				Password : <input name="password" type="password" />
-				<input type="submit" />
+				<input type="submit" value="Login" />
 			</form>
 		</div>
 		<footer class="footer">

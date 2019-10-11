@@ -14,7 +14,7 @@ public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private LoginService service = new LoginService();
+	private LoginService userValidationService = new LoginService();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,9 +29,9 @@ public class LoginServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 
-		boolean isValidUser = service.validateUser(name, password);
+		boolean isUserValid = userValidationService.isUserValid(name, password);
 
-		if (isValidUser) {
+		if (isUserValid) {
 			request.getSession().setAttribute("name", name);
 			response.sendRedirect("/todo.do");
 		} else {

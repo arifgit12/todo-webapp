@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.aam.app.model.Todo;
 import edu.aam.app.service.TodoService;
 
-@WebServlet(urlPatterns = "/todo.do")
+@WebServlet(urlPatterns = "/t2odo.do")
 public class TodoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +31,7 @@ public class TodoServlet extends HttpServlet {
 		if ("".equals(todo)) {
 			request.setAttribute("errorMessage", "Enter a valid todo");
 		} else {
-			todoService.addTodo(todo);
+			todoService.addTodo(new Todo(todo));
 		}
 		request.setAttribute("todos", todoService.retrieveTodos());
 		request.getRequestDispatcher("/WEB-INF/views/todo.jsp").forward(request, response);

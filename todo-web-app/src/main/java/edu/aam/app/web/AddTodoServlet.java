@@ -11,16 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import edu.aam.app.model.Todo;
 import edu.aam.app.service.TodoService;
 
-@WebServlet(urlPatterns = "/delete-todo.do")
-public class DeleteTodoServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/add-todo.do")
+public class AddTodoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	private TodoService todoService = new TodoService();
 
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		todoService.deleteTodo(new Todo(request.getParameter("todo")));
+		String newTodo = request.getParameter("todo");
+		todoService.addTodo(new Todo(newTodo));
 		response.sendRedirect("/todo.do");
 	}
 }
