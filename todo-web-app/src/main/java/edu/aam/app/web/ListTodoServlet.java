@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.aam.app.service.TodoService;
 
-@WebServlet(urlPatterns = "/todo.do")
+@WebServlet(urlPatterns = "/list-todos.do")
 public class ListTodoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -20,7 +20,7 @@ public class ListTodoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("todos", todoService.retrieveTodos());
-		request.getRequestDispatcher("/WEB-INF/views/todo.jsp").forward(
+		request.getRequestDispatcher("/WEB-INF/views/list-todos.jsp").forward(
 				request, response);
 	}
 }

@@ -37,27 +37,16 @@
 					<li><a href="/list-todos.do">Todos</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/login.do">Login</a></li>
+					<li><a href="/logout.do">Logout</a></li>
 				</ul>
 			</div>
 	
 		</nav>
 		<div  class="container">
-			<H1>Welcome ${name}</H1>
-
-			Your Todos are
-			<ol>
-				<c:forEach items="${todos}" var="todo">
-					<li>${todo.name}&nbsp;<a href="/delete-todo.do?todo=${todo.name}">Delete</a></li>
-				</c:forEach>
-			</ol>
-	
-			<p>
-				<font color="red">${errorMessage}</font>
-			</p>
+			Your New Action Item:
 			<form method="POST" action="/add-todo.do">
-				New Todo : <input name="todo" type="text" /> 
-					<input name="add" type="submit" />
+				New Todo : <input name="todo" type="text" />
+				<input name="add" type="submit" />
 			</form>
 		</div>
 		<footer class="footer">
