@@ -18,4 +18,8 @@ public class TodoService {
 	public List<Todo> retrieveTodos() {
 		return todos;
 	}
+
+	public void addTodo(String todo) {
+		todos.add(new Todo(todo));
+	}
 }
