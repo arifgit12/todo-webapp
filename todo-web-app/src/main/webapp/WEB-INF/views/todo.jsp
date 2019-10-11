@@ -12,7 +12,7 @@
 			Your Todos are
 			<ol>
 				<c:forEach items="${todos}" var="todo">
-				   <li>${todo.name}</li>
+				   <li>${todo.name} <a href="/delete-todo.do?todo=${todo.name}">Delete</a></li> 
 				</c:forEach>
 			</ol>
 			<p><font color="red">${errorMessage}</font></p>

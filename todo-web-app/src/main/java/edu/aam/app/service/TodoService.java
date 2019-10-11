@@ -22,4 +22,8 @@ public class TodoService {
 	public void addTodo(String todo) {
 		todos.add(new Todo(todo));
 	}
+
+	public void deleteTodo(String todo) {
+		todos.remove(new Todo(todo));
+	}
 }
