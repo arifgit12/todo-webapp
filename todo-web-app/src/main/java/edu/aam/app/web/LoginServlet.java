@@ -1,4 +1,4 @@
-package edu.aam.app.login;
+package edu.aam.app.web;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.aam.app.service.LoginService;
-import edu.aam.app.service.TodoService;
 
 @WebServlet(urlPatterns = "/login.do")
 public class LoginServlet extends HttpServlet {
@@ -16,7 +15,6 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private LoginService service = new LoginService();
-	private TodoService todoService = new TodoService();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,9 +32,7 @@ public class LoginServlet extends HttpServlet {
 		boolean isValidUser = service.validateUser(name, password);
 
 		if (isValidUser) {
-			request.setAttribute("name", name);
-			request.setAttribute("todos", todoService.retrieveTodos());
-			request.getRequestDispatcher("/WEB-INF/views/welcome.jsp").forward(request, response);
+			response.sendRedirect("/todo.do");
 		} else {
 			request.setAttribute("errorMessage", "Invalid Credentials!!");
 			request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
