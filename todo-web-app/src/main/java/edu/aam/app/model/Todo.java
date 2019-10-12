@@ -1,42 +1,69 @@
 package edu.aam.app.model;
 
+import java.util.Date;
+
 public class Todo {
 
-	private String name;
-	private String category;
+	private int id;
+	private String user;
+	private String desc;
+	private Date targetDate;
+	private boolean isDone;
 
-	public Todo(String name, String category) {
+	public Todo(int id, String user, String desc, Date targetDate, boolean isDone) {
 		super();
-		this.name = name;
-		this.category = category;
+		this.id = id;
+		this.user = user;
+		this.desc = desc;
+		this.targetDate = targetDate;
+		this.isDone = isDone;
 	}
 
-	public String getName() {
-		return name;
+	public int getId() {
+		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getUser() {
+		return user;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setUser(String user) {
+		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("Todo [name=%s, category=%s]", name, category);
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public Date getTargetDate() {
+		return targetDate;
+	}
+
+	public void setTargetDate(Date targetDate) {
+		this.targetDate = targetDate;
+	}
+
+	public boolean isDone() {
+		return isDone;
+	}
+
+	public void setDone(boolean isDone) {
+		this.isDone = isDone;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + id;
 		return result;
 	}
 
@@ -49,11 +76,15 @@ public class Todo {
 		if (getClass() != obj.getClass())
 			return false;
 		Todo other = (Todo) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
+		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return String.format(
+				"Todo [id=%s, user=%s, desc=%s, targetDate=%s, isDone=%s]", id,
+				user, desc, targetDate, isDone);
 	}
 }

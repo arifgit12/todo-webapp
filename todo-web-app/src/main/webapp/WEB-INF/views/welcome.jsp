@@ -9,7 +9,9 @@
 	</head>
 	<body>
 		<div>
-			<H1>Welcome ${name}. You are now authenticated.</H1>
+			<H1>
+				Welcome ${name}. You are now authenticated. <a href="/list-todos">Click here</a> to start maintaining your todo's.
+			</H1>
 		</div>
 
 		<script src="webjars/jquery/1.9.1/jquery.min.js"></script>

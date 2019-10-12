@@ -1,5 +1,6 @@
 package edu.aam.app.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,8 @@ import edu.aam.app.service.LoginService;
 @Controller
 public class LoginController {
 
-	private LoginService loginService = new LoginService();
+	@Autowired
+	private LoginService loginService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLoginPage() {
