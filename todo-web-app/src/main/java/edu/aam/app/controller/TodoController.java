@@ -16,7 +16,7 @@ public class TodoController {
 
 	@RequestMapping(value = "/list-todos", method = RequestMethod.GET)
 	public String showLoginPage(ModelMap model) {
-		model.addAttribute("todos", service.retrieveTodos("in28Minutes"));
+		model.addAttribute("todos", service.retrieveTodos("springuser"));
 		return "list-todos";
 	}
 }
