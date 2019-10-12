@@ -43,10 +43,6 @@
 		</nav>
 		<div  class="container">
 			<H1>Welcome ${name}</H1>
-			<div>
-				Your Todos are
-				${todos}
-			</div>
 		</div>
 		<footer class="footer">
 			<div class="container">
