@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LogoutController {
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request,
-			HttpServletResponse response) {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
 		if (auth != null) {
