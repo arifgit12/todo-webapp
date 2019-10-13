@@ -17,6 +17,12 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String showWelcomePage(ModelMap model) {
+		model.put("name", "springuser");
+		return "welcome";
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLoginPage() {
 		return "login";

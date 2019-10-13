@@ -52,9 +52,13 @@ public class TodoController {
 		if (result.hasErrors())
 			return "todo";
 
-		service.addTodo((String) model.get("name"), todo.getDesc(), todo.getTargetDate(), false);
+		service.addTodo(getLoggedInUserName(model), todo.getDesc(), todo.getTargetDate(), false);
 		model.clear();// to prevent request parameter "name" to be passed
 		return "redirect:/list-todos";
+	}
+
+	private String getLoggedInUserName(ModelMap model) {
+		return (String) model.get("name");
 	}
 
 	@RequestMapping(value = "/update-todo", method = RequestMethod.GET)
@@ -69,7 +73,7 @@ public class TodoController {
 		if (result.hasErrors())
 			return "todo";
 
-		todo.setUser("springuser"); //TODO:Remove Hardcoding Later
+		todo.setUser(getLoggedInUserName(model)); //TODO:Remove Hardcoding Later
 		service.updateTodo(todo);
 
 		model.clear();// to prevent request parameter "name" to be passed
@@ -82,5 +86,4 @@ public class TodoController {
 
 		return "redirect:/list-todos";
 	}
-
 }
