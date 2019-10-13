@@ -1,71 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
-	<head>
-		<title>Todos</title>
-		<!-- Bootstrap core CSS -->
-		<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
-			rel="stylesheet">
-		<style>
-			.footer {
-				position: absolute;
-				bottom: 0;
-				width: 100%;
-				height: 60px;
-				background-color: #f5f5f5;
-			}
-			
-			.footer .container {
-				width: auto;
-				max-width: 680px;
-				padding: 0 15px;
-			}
-		</style>
-	</head>
-	<body>
-		<nav role="navigation" class="navbar navbar-default">
+<head>
+<title>Your Todo</title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body>
 
-			<div class="">
-				<a href="/" class="navbar-brand">Brand</a>
-			</div>
-	
-			<div class="navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="/list-todos.do">Todos</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/login.do">Login</a></li>
-				</ul>
-			</div>
-	
-		</nav>
-		<div  class="container">
-			<H1>Welcome ${name}</H1>
+	<div class="container">
+		<form:form method="post" commandName="todo">
+			<fieldset class="form-group">
+				<form:label path="desc">Description</form:label>
+				<form:input path="desc" type="text" class="form-control"
+					required="required"/>
+				<form:errors path="desc" cssClass="text-warning" />
 
-			Your Todos are
-			<ol>
-				<c:forEach items="${todos}" var="todo">
-					<li>${todo.name}&nbsp;<a href="/delete-todo.do?todo=${todo.name}">Delete</a></li>
-				</c:forEach>
-			</ol>
-	
-			<p>
-				<font color="red">${errorMessage}</font>
-			</p>
-			<form method="POST" action="/add-todo.do">
-				New Todo : <input name="todo" type="text" /> 
-					<input name="add" type="submit" />
-			</form>
-		</div>
-		<footer class="footer">
-			<div class="container">
-				<p>footer content</p>
-			</div>
-		</footer>
-		<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
-		<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	</body>
+			</fieldset>
+			<button type="submit" class="btn btn-success">Add</button>
+		</form:form>
+	</div>
+
+	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</body>
 </html>
