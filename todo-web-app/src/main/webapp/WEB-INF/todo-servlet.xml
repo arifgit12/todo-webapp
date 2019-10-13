@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
@@ -11,7 +10,7 @@
     <context:component-scan base-package="edu.aam.app" />
 
     <mvc:annotation-driven />
-
+    
     <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
@@ -21,6 +20,7 @@
             <value>.jsp</value>
         </property>
     </bean>
-
+    
     <mvc:resources mapping="/webjars/**" location="/webjars/"/>
+    
 </beans>

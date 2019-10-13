@@ -1,21 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Todos</title>
-		<!-- Bootstrap core CSS -->
-		<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-	</head>
-	<body>
-		<div>
-			<p><font color="red">${errorMessage}</font></p>
-    		<form action="/login" method="POST">
-        		Name : <input name="name" type="text" />
-        		Password : <input name="password" type="password" /> 
-        		<input type="submit" />
-    		</form>
-		</div>
-	</body>
-</html>
+<%@ include file="../common/header.jspf"%>
+<%@ include file="../common/navigation.jspf"%>
+<div class="container">
+	<p>
+		<font color="red">${errorMessage}</font>
+	</p>
+	<form action="/login" method="POST">
+		<fieldset class="form-group">
+			<label>Name</label> <input name="name" type="text"
+				class="form-control" />
+		</fieldset>
+		<fieldset class="form-group">
+			<label>Password</label> <input name="password" type="password"
+				class="form-control" />
+		</fieldset>
+		<button type="submit" class="btn btn-success">Submit</button>
+	</form>
+
+</div>
+
+<%@ include file="../common/footer.jspf"%>
