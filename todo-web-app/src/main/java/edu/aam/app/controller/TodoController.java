@@ -7,6 +7,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -35,7 +37,7 @@ public class TodoController {
 
 	@RequestMapping(value = "/list-todos", method = RequestMethod.GET)
 	public String showTodosList(ModelMap model) {
-		String user = (String) model.get("name");
+		String user = getLoggedInUserName();
 		model.addAttribute("todos", service.retrieveTodos(user));
 		return "list-todos";
 	}
@@ -52,13 +54,19 @@ public class TodoController {
 		if (result.hasErrors())
 			return "todo";
 
-		service.addTodo(getLoggedInUserName(model), todo.getDesc(), todo.getTargetDate(), false);
+		service.addTodo(getLoggedInUserName(), todo.getDesc(), todo.getTargetDate(), false);
 		model.clear();// to prevent request parameter "name" to be passed
 		return "redirect:/list-todos";
 	}
 
-	private String getLoggedInUserName(ModelMap model) {
-		return (String) model.get("name");
+	private String getLoggedInUserName() {
+		Object principal = SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+
+		if (principal instanceof UserDetails)
+			return ((UserDetails) principal).getUsername();
+
+		return principal.toString();
 	}
 
 	@RequestMapping(value = "/update-todo", method = RequestMethod.GET)
@@ -73,7 +81,7 @@ public class TodoController {
 		if (result.hasErrors())
 			return "todo";
 
-		todo.setUser(getLoggedInUserName(model)); //TODO:Remove Hardcoding Later
+		todo.setUser(getLoggedInUserName()); //TODO:Remove Hardcoding Later
 		service.updateTodo(todo);
 
 		model.clear();// to prevent request parameter "name" to be passed
