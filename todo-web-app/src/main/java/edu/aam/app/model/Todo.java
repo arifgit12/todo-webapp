@@ -3,6 +3,7 @@ package edu.aam.app.model;
 public class Todo {
 
 	private String name;
+
 	private String category;
 
 	public Todo(String name, String category) {
