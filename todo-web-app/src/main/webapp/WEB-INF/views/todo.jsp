@@ -21,6 +21,8 @@
 
 <script>
 	$('#targetDate').datepicker({
-		format : 'dd/mm/yyyy'
+		format : 'dd/mm/yyyy',
+		startDate: '0d',
+		todayHighlight: true
 	});
 </script>
