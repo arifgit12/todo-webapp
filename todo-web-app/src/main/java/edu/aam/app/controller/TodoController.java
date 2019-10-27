@@ -94,4 +94,17 @@ public class TodoController {
 
 		return "redirect:/list-todos";
 	}
+
+	@RequestMapping(value = "/checked", method = RequestMethod.GET)
+	public String checked(ModelMap model, @RequestParam int id, @RequestParam boolean complete) {
+		System.out.println("Checked Clicked: " + id + " - " + complete);
+		Todo todo = service.retrieveTodo(id);
+		if(todo != null) {
+			todo.setDone(complete);
+			service.updateTodo(todo);
+		}
+		String user = getLoggedInUserName();
+		model.addAttribute("todos", service.retrieveTodos(user));
+		return "list-todos";
+	}
 }
