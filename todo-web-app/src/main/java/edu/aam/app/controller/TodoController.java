@@ -2,6 +2,7 @@ package edu.aam.app.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.aam.app.model.Todo;
@@ -96,7 +98,8 @@ public class TodoController {
 	}
 
 	@RequestMapping(value = "/checked", method = RequestMethod.GET)
-	public String checked(ModelMap model, @RequestParam int id, @RequestParam boolean complete) {
+	@ResponseBody
+	public List<Todo> checked(@RequestParam int id, @RequestParam boolean complete) {
 		System.out.println("Checked Clicked: " + id + " - " + complete);
 		Todo todo = service.retrieveTodo(id);
 		if(todo != null) {
@@ -104,7 +107,6 @@ public class TodoController {
 			service.updateTodo(todo);
 		}
 		String user = getLoggedInUserName();
-		model.addAttribute("todos", service.retrieveTodos(user));
-		return "list-todos";
+		return service.retrieveTodos(user);
 	}
 }

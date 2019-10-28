@@ -31,15 +31,15 @@
 					<td><fmt:formatDate pattern="dd/MM/yyyy" value="${todo.targetDate}" /></td>
 					<td>${todo.done}</td>
 					<td>
-						<a type="button" class="btn btn-primary" href="<c:url value="/update-todo?id=${todo.id}"/>">Edit</a>
-						<a type="button" class="btn btn-warning" href="<c:url value="/delete-todo?id=${todo.id}"/>">Delete</a>
+						<a role="button" class="btn btn-primary" href="<c:url value="/update-todo?id=${todo.id}"/>">Edit</a>
+						<a role="button" class="btn btn-warning" href="<c:url value="/delete-todo?id=${todo.id}"/>">Delete</a>
 					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	<div>
-		<a type="button" class="btn btn-success" href="<c:url value="/add-todo"/>">Add</a>
+		<a role="button" class="btn btn-success" href="<c:url value="/add-todo"/>">Add</a>
 	</div>
 </div>
 
@@ -57,8 +57,9 @@
 			type: "get",
 			url: "/checked",
 			data:'id=' + completeCheckBox.value + '&complete=' + isChecked,
-			success: function(msg) {
-				console.log(msg.value);
+			success: function(response) {
+				console.log(response);
+				location.reload();
 			}
 		});
 	}
