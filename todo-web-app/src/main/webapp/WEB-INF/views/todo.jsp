@@ -13,6 +13,7 @@
 			<form:input path="targetDate" type="text" class="form-control" required="required" />
 			<form:errors path="targetDate" cssClass="text-warning" />
 		</fieldset>
+		<a role="button" class="btn btn-warning" href="<c:url value="/list-todos"/>">Cancel</a>
 		<button type="submit" class="btn btn-success">Submit</button>
 	</form:form>
 </div>
