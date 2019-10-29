@@ -145,7 +145,7 @@
 		if(numComplete > 0) {
 			$("#duetodos_table").html( todosTableHTML );
 		} else {
-			$("#duetodos_table").html( '' );
+			$("#duetodos_table").html( '<p> All Task Completed </p>' );
 		}
 	}
 
@@ -178,7 +178,7 @@
 		if(numComplete > 0) {
 			$("#todos_table").html( todosTableHTML );
 		} else {
-			$("#todos_table").html( '' );
+			$("#todos_table").html( '<p> Complete Todos not available </p>'  );
 		}
 	}
 
