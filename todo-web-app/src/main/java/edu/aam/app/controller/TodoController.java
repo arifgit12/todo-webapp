@@ -100,7 +100,7 @@ public class TodoController {
 	@RequestMapping(value = "/checked", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Todo> checked(@RequestParam int id, @RequestParam boolean complete) {
-		System.out.println("Checked Clicked: " + id + " - " + complete);
+
 		Todo todo = service.retrieveTodo(id);
 		if(todo != null) {
 			todo.setDone(complete);

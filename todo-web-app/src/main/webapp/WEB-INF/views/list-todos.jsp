@@ -116,6 +116,7 @@
 		var numComplete = 0;
 		if (response.length > 0) {
 				var todosTableHTML = '<table class="table table-striped" >';
+				todosTableHTML += '<caption>Your Todos are</caption>';
 				todosTableHTML += '<thead class="thead-light">' +
 							 '<tr>' +
 								 '<th>#</th>' +
@@ -190,10 +191,17 @@
 		    "November", "December"
 		  ];
 
+		  var monthNumbers = [
+			    "1", "2", "3",
+			    "4", "5", "6", "7",
+			    "8", "9", "10",
+			    "11", "12"
+			  ];
+
 		  var day = date.getDate();
 		  var monthIndex = date.getMonth();
 		  var year = date.getFullYear();
 
-		  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+		  return day + '/' + monthNumbers[monthIndex] + '/' + year;
 	}
 </script>
