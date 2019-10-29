@@ -3,6 +3,10 @@
 
 <div class="container">
 	<br />
+	<div>
+		<a role="button" class="btn btn-success" href="<c:url value="/add-todo"/>">Add</a>
+	</div>
+	<br />
 	<div class="card card-body" id="duetodos_table">
 		<table class="table table-striped">
 			<caption>Your Todos are</caption>
@@ -43,10 +47,7 @@
 		</table>
 	</div>
 	<br />
-	<div>
-		<a role="button" class="btn btn-success" href="<c:url value="/add-todo"/>">Add</a>
-	</div>
-	<br />
+
 	<div>
 		<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComplete" aria-expanded="false" aria-controls="collapseComplete">
 			Show Completed Task
@@ -88,7 +89,6 @@
 			</table>
 		</div>
 	</div>
-	
 </div>
 
 <%@ include file="../common/footer.jspf"%>
