@@ -19,19 +19,12 @@
 					<th></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="todosDueBody">
 				<c:forEach items="${todos}" var="todo">
 					<c:if test="${!todo.done}">
 						<tr>
 							<td style="padding-left: 30px;" >
-								<c:choose>
-							 		<c:when test="${todo.done}">
-									   <input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}" checked="checked"/>
-								 	</c:when>
-								 	<c:otherwise>
-							 			<input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}"/>
-								 	</c:otherwise>
-							  	</c:choose>
+								<input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}"/>
 							</td>
 							<td>${todo.desc}</td>
 							<td><fmt:formatDate pattern="dd/MM/yyyy" value="${todo.targetDate}" /></td>
@@ -65,26 +58,19 @@
 					<th>Completed</th>
 				</tr>
 				</thead>
-				<tbody>
-				<c:forEach items="${todos}" var="todo">
-					<c:if test="${todo.done}">
-						<tr>
-							<td style="padding-left: 30px;" >
-								<c:choose>
-									<c:when test="${todo.done}">
-										<input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}" checked="checked"/>
-									</c:when>
-									<c:otherwise>
-										<input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}"/>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td>${todo.desc}</td>
-							<td><fmt:formatDate pattern="dd/MM/yyyy" value="${todo.targetDate}" /></td>
-							<td>${todo.done}</td>
-						</tr>
-					</c:if>
-				</c:forEach>
+				<tbody id="todosCompleteBody">
+					<c:forEach items="${todos}" var="todo">
+						<c:if test="${todo.done}">
+							<tr>
+								<td style="padding-left: 30px;" >
+									<input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}" checked="checked"/>
+								</td>
+								<td>${todo.desc}</td>
+								<td><fmt:formatDate pattern="dd/MM/yyyy" value="${todo.targetDate}" /></td>
+								<td>${todo.done}</td>
+							</tr>
+						</c:if>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -100,7 +86,7 @@
 	  	} else {
 			 isChecked = false;
 	  	}
-		//$('#isCompleteCheck').prop('checked', isChecked);
+
 		$.ajax({
 			type: "get",
 			url: "/checked",
@@ -115,16 +101,7 @@
 	function getDueTodos(response) {
 		var numComplete = 0;
 		if (response.length > 0) {
-				var todosTableHTML = '<table class="table table-striped" >';
-				todosTableHTML += '<caption>Your Todos are</caption>';
-				todosTableHTML += '<thead class="thead-light">' +
-							 '<tr>' +
-								 '<th>#</th>' +
-								 '<th>Description</th>' +
-								 '<th>Due Date</th>' +
-								 '<th>Completed</th>'+
-								 '<th></th>'
-							 '</tr> </thead>';
+				var todosTableHTML = '';
 					$.each(response, function (key,value) {
 					 	if(!value.done) {
 					 		numComplete = numComplete + 1;
@@ -141,26 +118,19 @@
 							'</tr>';
 					 	}
 				 });
-				 todosTableHTML += '</table>';
+				 todosTableHTML += '';
 		}
 		if(numComplete > 0) {
-			$("#duetodos_table").html( todosTableHTML );
+			$("#todosDueBody").html( todosTableHTML );
 		} else {
-			$("#duetodos_table").html( '<p> All Task Completed </p>' );
+			$("#todosDueBody").html( '<br /> <p> All Task Completed </p>' );
 		}
 	}
 
 	function getCompleteTodos(response) {
 		var numComplete = 0;
 		if (response.length > 0) {
-				var todosTableHTML = '<table class="table table-striped" >';
-				todosTableHTML += '<thead class="thead-light">' +
-							 '<tr>' +
-								 '<th>#</th>' +
-								 '<th>Description</th>' +
-								 '<th>Due Date</th>' +
-								 '<th>Completed</th>'+
-							 '</tr> </thead>';
+				var todosTableHTML = '';
 					$.each(response, function (key,value) {
 					 	if(value.done) {
 					 		numComplete = numComplete + 1;
@@ -173,13 +143,13 @@
 							'</tr>';
 					 	}
 				 });
-				 todosTableHTML += '</table>';
+				 todosTableHTML += '';
 		}
 
 		if(numComplete > 0) {
-			$("#todos_table").html( todosTableHTML );
+			$("#todosCompleteBody").html( todosTableHTML );
 		} else {
-			$("#todos_table").html( '<p> Complete Todos not available </p>'  );
+			$("#todosCompleteBody").html( '<br /> <p> Complete Todos not available </p>'  );
 		}
 	}
 
