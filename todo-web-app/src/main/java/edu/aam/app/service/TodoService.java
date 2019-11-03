@@ -1,6 +1,5 @@
 package edu.aam.app.service;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -16,11 +15,9 @@ public class TodoService {
 	private static int todoCount = 3;
 
 	static {
-		todos.add(new Todo(1, "springuser", "Learn Spring MVC", new Date(),
-				false));
-		todos.add(new Todo(2, "springuser", "Learn Struts", new Date(), false));
-		todos.add(new Todo(3, "springuser", "Learn Hibernate", new Date(),
-				false));
+		todos.add(new Todo(1, "springuser", "Learn Spring MVC", new Date(), false, new Date(), null));
+		todos.add(new Todo(2, "springuser", "Learn Struts", new Date(), false, new Date(), null));
+		todos.add(new Todo(3, "springuser", "Learn Hibernate", new Date(), false, new Date(), null));
 	}
 
 	public List<Todo> retrieveTodos(String user) {

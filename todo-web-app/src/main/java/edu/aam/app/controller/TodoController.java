@@ -102,8 +102,10 @@ public class TodoController {
 	public List<Todo> checked(@RequestParam int id, @RequestParam boolean complete) {
 
 		Todo todo = service.retrieveTodo(id);
+		todo.setUpdatedDate(new Date());
+
 		if(todo != null) {
-			todo.setDone(complete);
+			todo.setStatus(complete);
 			service.updateTodo(todo);
 		}
 		String user = getLoggedInUserName();

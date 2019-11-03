@@ -21,14 +21,14 @@
 			</thead>
 			<tbody id="todosDueBody">
 				<c:forEach items="${todos}" var="todo">
-					<c:if test="${!todo.done}">
+					<c:if test="${!todo.status}">
 						<tr>
 							<td style="padding-left: 30px;" >
 								<input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}"/>
 							</td>
 							<td>${todo.desc}</td>
 							<td><fmt:formatDate pattern="dd/MM/yyyy" value="${todo.targetDate}" /></td>
-							<td>${todo.done}</td>
+							<td>${todo.status}</td>
 							<td>
 								<a role="button" class="btn btn-primary" href="<c:url value="/update-todo?id=${todo.id}"/>">Edit</a>
 								<a role="button" class="btn btn-warning" href="<c:url value="/delete-todo?id=${todo.id}"/>">Delete</a>
@@ -60,14 +60,14 @@
 				</thead>
 				<tbody id="todosCompleteBody">
 					<c:forEach items="${todos}" var="todo">
-						<c:if test="${todo.done}">
+						<c:if test="${todo.status}">
 							<tr>
 								<td style="padding-left: 30px;" >
 									<input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}" checked="checked"/>
 								</td>
 								<td>${todo.desc}</td>
 								<td><fmt:formatDate pattern="dd/MM/yyyy" value="${todo.targetDate}" /></td>
-								<td>${todo.done}</td>
+								<td><fmt:formatDate pattern="dd/MM/yyyy" value="${todo.updatedDate}" /></td>
 							</tr>
 						</c:if>
 					</c:forEach>
@@ -103,14 +103,14 @@
 		if (response.length > 0) {
 				var todosTableHTML = '';
 					$.each(response, function (key,value) {
-					 	if(!value.done) {
+					 	if(!value.status) {
 					 		numComplete = numComplete + 1;
 							todosTableHTML +=
  							'<tr>' +
  								'<td>' + '<input type="checkbox" id="chkx" name="chkxComplete" onClick="isComplete(this)" value=' + value.id + ' />' + '</td>' +
    							 	'<td>' + value.desc + '</td>' +
    							 	'<td>' + formatDate(new Date(value.targetDate)) + '</td>' +
-   							 	'<td>' + value.done + '</td>' +
+   							 	'<td>' + value.status + '</td>' +
    							 	'<td>' +
 									'<a role="button" class="btn btn-primary" href="<c:url value="/update-todo?id=' + value.id + '"/>"> Edit </a> ' +
 									'<a role="button" class="btn btn-warning" href="<c:url value="/delete-todo?id=' + value.id + '"/>"> Delete </a> ' +
@@ -132,14 +132,14 @@
 		if (response.length > 0) {
 				var todosTableHTML = '';
 					$.each(response, function (key,value) {
-					 	if(value.done) {
+					 	if(value.status) {
 					 		numComplete = numComplete + 1;
 							todosTableHTML +=
  							'<tr>' +
  								'<td>' + '<input type="checkbox" id="chkx" name="chkxComplete" onClick="isComplete(this)" value=' + value.id + ' checked="checked" />' + '</td>' +
    							 	'<td>' + value.desc + '</td>' +
    							 	'<td>' + formatDate(new Date(value.targetDate)) + '</td>' +
-   							 	'<td>' + value.done + '</td>' +
+   							 	'<td>' + formatDate(new Date(value.updatedDate)) + '</td>' +
 							'</tr>';
 					 	}
 				 });
