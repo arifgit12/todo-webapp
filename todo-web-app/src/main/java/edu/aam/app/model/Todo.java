@@ -19,7 +19,7 @@ public class Todo {
 
 	private Date createdDate;
 
-    private Date completedDate;
+    private Date updatedDate;
 
 	public Todo() {
 		super();
@@ -34,7 +34,7 @@ public class Todo {
 		this.status = isDone;
 	}
 
-	public Todo(int id, String user, String desc, Date targetDate, Boolean isDone, Date createdDate, Date completedDate) {
+	public Todo(int id, String user, String desc, Date targetDate, Boolean isDone, Date createdDate, Date updatedDate) {
         super();
         this.id = id;
 		this.user = user;
@@ -42,7 +42,7 @@ public class Todo {
 		this.targetDate = targetDate;
 		this.status = isDone;
         this.createdDate = createdDate;
-        this.completedDate = completedDate;
+        this.updatedDate = updatedDate;
 	}
 
 	public int getId() {
@@ -93,12 +93,12 @@ public class Todo {
 		this.createdDate = new Date();
 	}
 
-	public Date getCompletedDate() {
-		return completedDate;
+	public Date getUpdatedDate() {
+		return updatedDate;
 	}
 
-	public void setCompletedDate(Date completedDate) {
-		this.completedDate = completedDate;
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 	@Override
@@ -126,7 +126,7 @@ public class Todo {
 	@Override
 	public String toString() {
 		return String.format(
-				"Todo [id=%s, user=%s, desc=%s, targetDate=%s, isDone=%s, CompletedDate=%s]", id,
-				user, desc, targetDate, status, completedDate);
+				"Todo [id=%s, user=%s, desc=%s, targetDate=%s, isDone=%s, updatedDate=%s]", id,
+				user, desc, targetDate, status, updatedDate);
 	}
 }
