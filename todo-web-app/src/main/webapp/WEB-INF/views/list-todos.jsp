@@ -100,56 +100,59 @@
 	
 	function getDueTodos(response) {
 		var numComplete = 0;
+		var todosTableHTML = '';
 		if (response.length > 0) {
-				var todosTableHTML = '';
-					$.each(response, function (key,value) {
-					 	if(!value.status) {
-					 		numComplete = numComplete + 1;
-							todosTableHTML +=
- 							'<tr>' +
- 								'<td>' + '<input type="checkbox" id="chkx" name="chkxComplete" onClick="isComplete(this)" value=' + value.id + ' />' + '</td>' +
-   							 	'<td>' + value.desc + '</td>' +
-   							 	'<td>' + formatDate(new Date(value.targetDate)) + '</td>' +
-   							 	'<td>' + value.status + '</td>' +
-   							 	'<td>' +
-									'<a role="button" class="btn btn-primary" href="<c:url value="/update-todo?id=' + value.id + '"/>"> Edit </a> ' +
-									'<a role="button" class="btn btn-warning" href="<c:url value="/delete-todo?id=' + value.id + '"/>"> Delete </a> ' +
-								'</td>' +
-							'</tr>';
-					 	}
-				 });
-				 todosTableHTML += '';
+				$.each(response, function (key,value) {
+				 	if(!value.status) {
+				 		numComplete = numComplete + 1;
+						todosTableHTML +=
+							'<tr>' +
+								'<td>' + '<input type="checkbox" id="chkx" name="chkxComplete" onClick="isComplete(this)" value=' + value.id + ' />' + '</td>' +
+  							 	'<td>' + value.desc + '</td>' +
+  							 	'<td>' + formatDate(new Date(value.targetDate)) + '</td>' +
+  							 	'<td>' + value.status + '</td>' +
+  							 	'<td>' +
+								'<a role="button" class="btn btn-primary" href="<c:url value="/update-todo?id=' + value.id + '"/>"> Edit </a> ' +
+								'<a role="button" class="btn btn-warning" href="<c:url value="/delete-todo?id=' + value.id + '"/>"> Delete </a> ' +
+							'</td>' +
+						'</tr>';
+				 	}
+			 });
 		}
+
+		$('#todosDueBody').empty();
+
 		if(numComplete > 0) {
-			$("#todosDueBody").html( todosTableHTML );
+			$("#todosDueBody").append( todosTableHTML );
 		} else {
-			$("#todosDueBody").html( '<br /> <p> All Task Completed </p>' );
+			$("#todosDueBody").append( '<br /> <p> All Task Completed </p>' );
 		}
 	}
 
 	function getCompleteTodos(response) {
 		var numComplete = 0;
+		var todosTableHTML = '';
 		if (response.length > 0) {
-				var todosTableHTML = '';
-					$.each(response, function (key,value) {
-					 	if(value.status) {
-					 		numComplete = numComplete + 1;
-							todosTableHTML +=
- 							'<tr>' +
- 								'<td>' + '<input type="checkbox" id="chkx" name="chkxComplete" onClick="isComplete(this)" value=' + value.id + ' checked="checked" />' + '</td>' +
-   							 	'<td>' + value.desc + '</td>' +
-   							 	'<td>' + formatDate(new Date(value.targetDate)) + '</td>' +
-   							 	'<td>' + formatDate(new Date(value.updatedDate)) + '</td>' +
-							'</tr>';
-					 	}
-				 });
-				 todosTableHTML += '';
+				$.each(response, function (key,value) {
+				 	if(value.status) {
+				 		numComplete = numComplete + 1;
+						todosTableHTML +=
+							'<tr>' +
+								'<td>' + '<input type="checkbox" id="chkx" name="chkxComplete" onClick="isComplete(this)" value=' + value.id + ' checked="checked" />' + '</td>' +
+  							 	'<td>' + value.desc + '</td>' +
+  							 	'<td>' + formatDate(new Date(value.targetDate)) + '</td>' +
+  							 	'<td>' + formatDate(new Date(value.updatedDate)) + '</td>' +
+						'</tr>';
+				 	}
+			 });
 		}
 
+		$('#todosCompleteBody').empty();
+
 		if(numComplete > 0) {
-			$("#todosCompleteBody").html( todosTableHTML );
+			$("#todosCompleteBody").append( todosTableHTML );
 		} else {
-			$("#todosCompleteBody").html( '<br /> <p> Complete Todos not available </p>'  );
+			$("#todosCompleteBody").append( '<br /> <p> Complete Todos not available </p>'  );
 		}
 	}
 
