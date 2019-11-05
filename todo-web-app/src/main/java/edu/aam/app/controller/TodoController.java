@@ -83,8 +83,17 @@ public class TodoController {
 		if (result.hasErrors())
 			return "todo";
 
-		todo.setUser(getLoggedInUserName()); //TODO:Remove Hardcoding Later
-		service.updateTodo(todo);
+		Todo editTodo = service.retrieveTodo(todo.getId());
+
+		if(editTodo == null) {
+			return "todo";
+		}
+
+		editTodo.setDesc(todo.getDesc());
+		editTodo.setTargetDate(todo.getTargetDate());
+
+		//todo.setUser(getLoggedInUserName()); //TODO:Remove Hardcoding Later
+		service.updateTodo(editTodo);
 
 		model.clear();// to prevent request parameter "name" to be passed
 		return "redirect:/list-todos";
