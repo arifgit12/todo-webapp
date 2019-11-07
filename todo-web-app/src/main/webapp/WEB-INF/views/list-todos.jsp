@@ -89,7 +89,7 @@
 
 		$.ajax({
 			type: "get",
-			url: "/checked",
+			url: "<c:url value="/checked"/>",
 			data:'id=' + completeCheckBox.value + '&complete=' + isChecked,
 			success: function(response) {
 				getDueTodos(response);
