@@ -27,3 +27,8 @@ todo-web-app/.classpath
 todo-web-app/.project
 todo-web-app/.settings
 todo-web-app/target
+
+todo-web-app/.springBeans
+todo-web-app/target
+todo-web-app/.idea
+todo-web-app/todo-web-app.iml
