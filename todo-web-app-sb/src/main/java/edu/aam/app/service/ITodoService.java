@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 
 public interface ITodoService {
@@ -21,4 +22,5 @@ public interface ITodoService {
 	
 	void saveTodo(Todo todo);
 
+	Task getTaskById(Long id);
 }

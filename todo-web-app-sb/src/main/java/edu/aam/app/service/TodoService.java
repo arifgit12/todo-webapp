@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
+import edu.aam.app.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ public class TodoService implements ITodoService {
 
 	@Autowired
 	private TodoRepository todoRepository;
+
+	@Autowired
+	private TaskRepository taskRepository;
 
 	@Override
 	public List<Todo> getTodosByUser(String user) {
@@ -47,5 +52,10 @@ public class TodoService implements ITodoService {
 	@Override
 	public void saveTodo(Todo todo) {
 		todoRepository.save(todo);
+	}
+
+	@Override
+	public Task getTaskById(Long id) {
+		return taskRepository.getOne(id);
 	}
 }
