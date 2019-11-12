@@ -1,6 +1,8 @@
 package edu.aam.app.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -28,6 +30,9 @@ public class Todo {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Task taskList;
+
+	@OneToMany(mappedBy = "toDo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	List<Comment> comments = new ArrayList<>();
 
 	public Todo() {
 		super();
