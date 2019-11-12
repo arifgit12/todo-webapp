@@ -2,11 +2,7 @@ package edu.aam.app.model;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -29,6 +25,9 @@ public class Todo {
 	private Date createdDate;
 
 	private Date updatedDate;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Task taskList;
 
 	public Todo() {
 		super();
@@ -96,5 +95,13 @@ public class Todo {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public Task getTaskList() {
+		return taskList;
+	}
+
+	public void setTaskList(Task taskList) {
+		this.taskList = taskList;
 	}
 }
