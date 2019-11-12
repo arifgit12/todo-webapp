@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.validation.Valid;
 
+import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 import edu.aam.app.service.ITodoService;
 import edu.aam.app.service.task.ITaskService;
@@ -57,6 +58,26 @@ public class TodoController {
 		return "todos/todo";
 	}
 
+	@RequestMapping(value = "/task-add-todo", method = RequestMethod.POST)
+	public String addTodoByTask(ModelMap model, @Valid TodoViewModel todoViewModel, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "todos/todo";
+		}
+
+		Task task = todoService.getTaskById(todoViewModel.getTaskId());
+		Todo todo = new Todo();
+		todo.setDescription(todoViewModel.getDescription());
+		todo.setTargetDate(todoViewModel.getTargetDate());
+		todo.setUserName(getLoggedInUserName(model));
+		todo.setTaskList(task);
+		todo.setStatus(false);
+		todo.setCreatedDate(new Date());
+		todoService.saveTodo(todo);
+		model.clear();
+		return "redirect:/list-todos";
+	}
+
 	@RequestMapping(value = "/add-todo", method = RequestMethod.GET)
 	public String showAddTodoPage(ModelMap model) {
 		model.addAttribute("todo", new Todo());
@@ -105,22 +126,22 @@ public class TodoController {
 		return "redirect:/list-todos";
 	}
 
-	@RequestMapping(value = "/task-add-todo", method = RequestMethod.POST)
-	public String taskAddTodo(ModelMap model, @Valid TodoViewModel todoViewModel, BindingResult result) {
-
-		if (result.hasErrors()) {
-			return "todos/todo";
-		}
-
-		Todo todo = new Todo();
-		todo.setTaskList(todoService.getTaskById(todoViewModel.getTaskId()));
-		todo.setDescription(todoViewModel.getDescription());
-		todo.setTargetDate(todoViewModel.getTargetDate());
-		todo.setUserName(getLoggedInUserName(model));
-		todo.setStatus(false);
-		todo.setCreatedDate(new Date());
-
-		model.clear();
-		return "redirect:/tasks/list-tasks";
-	}
+//	@RequestMapping(value = "/task-add-todo", method = RequestMethod.POST)
+//	public String taskAddTodo(ModelMap model, @Valid TodoViewModel todoViewModel, BindingResult result) {
+//
+//		if (result.hasErrors()) {
+//			return "todos/todo";
+//		}
+//
+//		Todo todo = new Todo();
+//		todo.setTaskList(todoService.getTaskById(todoViewModel.getTaskId()));
+//		todo.setDescription(todoViewModel.getDescription());
+//		todo.setTargetDate(todoViewModel.getTargetDate());
+//		todo.setUserName(getLoggedInUserName(model));
+//		todo.setStatus(false);
+//		todo.setCreatedDate(new Date());
+//
+//		model.clear();
+//		return "redirect:/tasks/list-tasks";
+//	}
 }
