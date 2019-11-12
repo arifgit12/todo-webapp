@@ -1,7 +1,6 @@
 package edu.aam.app.controller;
 
-import edu.aam.app.model.Todo;
-import edu.aam.app.service.TaskService;
+import edu.aam.app.service.task.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

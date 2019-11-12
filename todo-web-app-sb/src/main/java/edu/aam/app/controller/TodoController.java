@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import edu.aam.app.model.Todo;
 import edu.aam.app.service.ITodoService;
+import edu.aam.app.service.todo.TodoViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -49,7 +50,9 @@ public class TodoController {
 
 	@RequestMapping(value = "/task-add-todo", method = RequestMethod.GET)
 	public String showAddTodoPageByTask(@RequestParam Long taskId,  ModelMap model) {
-		model.addAttribute("todo", new Todo());
+		TodoViewModel todoViewModel = new TodoViewModel();
+		todoViewModel.setTaskId(taskId);
+		model.addAttribute("todo", todoViewModel);
 		return "todos/todo";
 	}
 
