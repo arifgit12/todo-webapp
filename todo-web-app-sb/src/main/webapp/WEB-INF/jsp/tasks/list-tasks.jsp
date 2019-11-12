@@ -18,7 +18,8 @@
 					<tr>
 						<th>Name</th>
 						<th>Description</th>
-						<th></th>
+						<th>Action</th>
+						<th>Add Todo</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -27,7 +28,10 @@
 							<td>${task.taskName}</td>
 							<td>${task.description}</td>
 							<td>
-
+								<a role="button" class="btn btn-warning" href="#">Update</a>
+							</td>
+							<td>
+								<a role="button" class="btn btn-success" href="/task-add-todo?taskId=${task.id}">Add</a>
 							</td>
 						</tr>
 					</c:forEach>
