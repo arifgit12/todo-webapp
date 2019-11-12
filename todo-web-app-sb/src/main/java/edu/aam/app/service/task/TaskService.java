@@ -17,4 +17,10 @@ public class TaskService implements ITaskService {
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
+
+    @Override
+    public Task save(Task task) {
+        Task saveTask = taskRepository.save(task);
+        return saveTask;
+    }
 }
