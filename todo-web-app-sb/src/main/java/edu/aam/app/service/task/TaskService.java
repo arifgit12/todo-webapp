@@ -1,4 +1,4 @@
-package edu.aam.app.service;
+package edu.aam.app.service.task;
 
 import edu.aam.app.model.Task;
 import edu.aam.app.repository.TaskRepository;
