@@ -23,4 +23,9 @@ public class TaskService implements ITaskService {
         Task saveTask = taskRepository.save(task);
         return saveTask;
     }
+
+    @Override
+    public Task getTaskById(Long id) {
+        return taskRepository.getOne(id);
+    }
 }
