@@ -32,7 +32,7 @@
 								<a role="button" class="btn btn-warning" href="#">Update</a>
 							</td>
 							<td>
-								<a role="button" class="btn btn-success" href="/task-add-todo?taskId=${task.id}">Add</a>
+								<a role="button" class="btn btn-success" href="/add-todo?taskId=${task.id}">Add</a>
 							</td>
 							<td>
 								<a role="button" class="btn btn-success" href="/task-list-todos?taskId=${task.id}">TODO's</a>

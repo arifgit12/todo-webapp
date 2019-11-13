@@ -3,9 +3,7 @@
 
 <div class="container">
 	<br />
-	<div>
-		<a role="button" class="btn btn-primary btn-md" href="/add-todo">Add Todo</a>
-	</div>
+
 	<br>
 	<div class="panel panel-primary">
 		<div class="panel-heading">

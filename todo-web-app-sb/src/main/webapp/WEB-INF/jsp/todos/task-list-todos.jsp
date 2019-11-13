@@ -4,7 +4,7 @@
 <div class="container">
 	<br />
 	<div>
-		<a role="button" class="btn btn-primary btn-md" href="/task-add-todo?taskId=${taskId}">Add Todo</a>
+		<a role="button" class="btn btn-primary btn-md" href="/add-todo?taskId=${taskId}">Add Todo</a>
 	</div>
 	<br>
 	<div class="panel panel-primary">
@@ -28,7 +28,7 @@
 							<td><fmt:formatDate value="${todo.targetDate}" pattern="dd/MM/yyyy" /></td>
 							<td>${todo.status}</td>
 							<td>
-								<a role="button" class="btn btn-success" href="/task-update-todo?id=${todo.id}">Update</a>
+								<a role="button" class="btn btn-success" href="/update-todo?id=${todo.id}">Update</a>
 								<a role="button" class="btn btn-warning" href="/delete-todo?id=${todo.id}">Delete</a>
 							</td>
 						</tr>
