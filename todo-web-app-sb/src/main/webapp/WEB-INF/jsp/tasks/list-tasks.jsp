@@ -20,6 +20,7 @@
 						<th>Description</th>
 						<th>Action</th>
 						<th>Add Todo</th>
+						<th>Todos</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,6 +33,9 @@
 							</td>
 							<td>
 								<a role="button" class="btn btn-success" href="/task-add-todo?taskId=${task.id}">Add</a>
+							</td>
+							<td>
+								<a role="button" class="btn btn-success" href="/task-list-todos?taskId=${task.id}">TODO's</a>
 							</td>
 						</tr>
 					</c:forEach>

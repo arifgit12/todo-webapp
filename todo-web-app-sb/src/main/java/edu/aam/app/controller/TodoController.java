@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 import edu.aam.app.service.ITodoService;
-import edu.aam.app.service.task.ITaskService;
 import edu.aam.app.service.todo.TodoViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -50,6 +49,13 @@ public class TodoController {
 		return principal.toString();
 	}
 
+	@RequestMapping(value = "/task-list-todos", method = RequestMethod.GET)
+	public String showTodosByTask(@RequestParam Long taskId, ModelMap model) {
+		Task task = todoService.getTaskById(taskId);
+		model.put("todos", task.getTodoList());
+		return "todos/task-list-todos";
+	}
+
 	@RequestMapping(value = "/task-add-todo", method = RequestMethod.GET)
 	public String showAddTodoPageByTask(@RequestParam Long taskId,  ModelMap model) {
 		TodoViewModel todoViewModel = new TodoViewModel();
@@ -73,6 +79,34 @@ public class TodoController {
 		todo.setTaskList(task);
 		todo.setStatus(false);
 		todo.setCreatedDate(new Date());
+		todoService.saveTodo(todo);
+		model.clear();
+		return "redirect:/list-todos";
+	}
+
+	@RequestMapping(value = "/task-update-todo", method = RequestMethod.GET)
+	public String showUpdateTodoPageByTask(@RequestParam long id, ModelMap model) {
+		Todo todo = todoService.getTodo(id);
+		TodoViewModel todoViewModel = new TodoViewModel();
+		todoViewModel.setTodoId(todo.getId());
+		todoViewModel.setTaskId(todo.getTaskList().getId());
+		todoViewModel.setDescription(todo.getDescription());
+		todoViewModel.setTargetDate(todo.getTargetDate());
+		model.addAttribute("todo", todoViewModel);
+		return "todos/todo";
+	}
+
+	@RequestMapping(value = "/task-update-todo", method = RequestMethod.POST)
+	public String updateTodoByTask(ModelMap model, @Valid TodoViewModel todoViewModel, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "todos/todo";
+		}
+		Todo todo = todoService.getTodo(todoViewModel.getTodoId());
+		todo.setDescription(todoViewModel.getDescription());
+		todo.setTargetDate(todoViewModel.getTargetDate());
+		todo.setStatus(false);
+		todo.setUpdatedDate(new Date());
 		todoService.saveTodo(todo);
 		model.clear();
 		return "redirect:/list-todos";
@@ -125,23 +159,4 @@ public class TodoController {
 		model.clear();
 		return "redirect:/list-todos";
 	}
-
-//	@RequestMapping(value = "/task-add-todo", method = RequestMethod.POST)
-//	public String taskAddTodo(ModelMap model, @Valid TodoViewModel todoViewModel, BindingResult result) {
-//
-//		if (result.hasErrors()) {
-//			return "todos/todo";
-//		}
-//
-//		Todo todo = new Todo();
-//		todo.setTaskList(todoService.getTaskById(todoViewModel.getTaskId()));
-//		todo.setDescription(todoViewModel.getDescription());
-//		todo.setTargetDate(todoViewModel.getTargetDate());
-//		todo.setUserName(getLoggedInUserName(model));
-//		todo.setStatus(false);
-//		todo.setCreatedDate(new Date());
-//
-//		model.clear();
-//		return "redirect:/tasks/list-tasks";
-//	}
 }
