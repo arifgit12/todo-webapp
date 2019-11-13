@@ -51,6 +51,11 @@ public class Todo {
 		this.comments.add(comment);
 	}
 
+	public void StatusUpdate(boolean bls) {
+		this.status = !bls;
+		this.updatedDate = this.status ? new Date() : null;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -25,4 +25,6 @@ public interface ITodoService {
 	void saveTodo(Todo todo);
 
 	Task getTaskById(Long id);
+
+	void putStatusTodo(Long id);
 }

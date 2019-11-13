@@ -63,4 +63,11 @@ public class TodoService implements ITodoService {
 	public Task getTaskById(Long id) {
 		return taskRepository.getOne(id);
 	}
+
+	@Override
+	public void putStatusTodo(Long id) {
+		Todo todo = todoRepository.getOne(id);
+		todo.StatusUpdate(todo.getStatus());
+		todoRepository.save(todo);
+	}
 }
