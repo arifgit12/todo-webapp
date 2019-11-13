@@ -28,4 +28,24 @@ public class TaskService implements ITaskService {
     public Task getTaskById(Long id) {
         return taskRepository.getOne(id);
     }
+
+    @Override
+    public Task putTask(Long id, TaskViewModel taskViewModel) {
+        Task task = taskRepository.getOne(id);
+        if(task == null) {
+            return null;
+        }
+        task.setTaskName(taskViewModel.getTaskName());
+        task.setDescription(taskViewModel.getDescription());
+
+        Task saveTask = taskRepository.save(task);
+        return saveTask;
+    }
+
+    @Override
+    public TaskViewModel mapTaskViewModel(Long taskId) {
+        Task task = taskRepository.getOne(taskId);
+        TaskViewModel taskViewModel = new TaskViewModel(task.getId(), task.getTaskName(), task.getDescription());
+        return taskViewModel;
+    }
 }

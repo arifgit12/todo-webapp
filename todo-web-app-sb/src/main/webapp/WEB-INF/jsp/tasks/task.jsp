@@ -6,7 +6,13 @@
 			<div class="panel panel-primary">
 				<br />
 
-				<div class="panel-heading">Add TASK</div>
+				<c:if test="${task.id == null}">
+					<div class="panel-heading">Add TASK</div>
+				</c:if>
+				<c:if test="${task.id != null}">
+					<div class="panel-heading">Update TASK</div>
+				</c:if>
+
 				<div class="panel-body">
 					<form:form method="post" modelAttribute="task">
 						<form:hidden path="id" />

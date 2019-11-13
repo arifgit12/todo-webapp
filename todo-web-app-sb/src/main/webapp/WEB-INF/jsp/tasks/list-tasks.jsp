@@ -29,7 +29,7 @@
 							<td>${task.taskName}</td>
 							<td>${task.description}</td>
 							<td>
-								<a role="button" class="btn btn-warning" href="#">Update</a>
+								<a role="button" class="btn btn-warning" href="/update-task?taskId=${task.id}">Update</a>
 							</td>
 							<td>
 								<a role="button" class="btn btn-success" href="/add-todo?taskId=${task.id}">Add</a>
