@@ -32,6 +32,11 @@ public class TodoService implements ITodoService {
 	}
 
 	@Override
+	public Todo getTodo(Long id) {
+		return todoRepository.getOne(id);
+	}
+
+	@Override
 	public void updateTodo(Todo todo) {
 		todoRepository.save(todo);
 	}
