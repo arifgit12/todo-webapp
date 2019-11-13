@@ -1,7 +1,6 @@
 package edu.aam.app.controller;
 
 import edu.aam.app.model.Task;
-import edu.aam.app.model.Todo;
 import edu.aam.app.service.task.TaskService;
 import edu.aam.app.service.task.TaskViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Date;
 
 @Controller
 public class TaskController {
@@ -30,7 +28,7 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/add-task", method = RequestMethod.POST)
-    public String addTodo(ModelMap model, @Valid Task task, BindingResult result) {
+    public String addTask(ModelMap model, @Valid Task task, BindingResult result) {
 
         if (result.hasErrors()) {
             return "tasks/task";
