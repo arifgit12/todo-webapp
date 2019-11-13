@@ -46,6 +46,11 @@ public class Todo {
 		this.status = isDone;
 	}
 
+	public void addComment(Comment comment) {
+		comment.setToDo(this);
+		this.comments.add(comment);
+	}
+
 	public long getId() {
 		return id;
 	}

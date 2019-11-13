@@ -18,38 +18,69 @@ public class Comment implements Comparable<Comment> {
     @Length(min = 1, max = 255, message = "Comments 1-255.")
     private String content;
 
-    @Column
-    private Boolean status;
-
     @Column(nullable = false)
     private Date createdDate;
 
     @Column
     private Date modifiedDate;
 
-    @Column
-    private Date completedDate;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Todo toDo;
 
-    public Comment(String content, Boolean status, Date createdDate, Date modifiedDate, Date completedDate, Todo toDo) {
-        this.content = content;
-        this.status = status;
-        this.createdDate = createdDate;
-        this.modifiedDate = modifiedDate;
-        this.completedDate = completedDate;
-        this.toDo = toDo;
+    public Comment() {
+
     }
 
-    public void StatusUpdate(boolean bls) {
-        this.status = !bls;
-        this.completedDate = this.status ? new Date() : null;
+    public Comment(String content, Date createdDate, Date modifiedDate, Todo toDo) {
+        this.content = content;
+        this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
+        this.toDo = toDo;
     }
 
     public void update(String comment) {
         this.content = comment;
         this.modifiedDate = new Date();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public Todo getToDo() {
+        return toDo;
+    }
+
+    public void setToDo(Todo toDo) {
+        this.toDo = toDo;
     }
 
     @Override
