@@ -1,4 +1,4 @@
-package edu.aam.app.service;
+package edu.aam.app.service.todo;
 
 import java.util.Date;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.Optional;
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 import edu.aam.app.repository.TaskRepository;
+import edu.aam.app.service.todo.ITodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

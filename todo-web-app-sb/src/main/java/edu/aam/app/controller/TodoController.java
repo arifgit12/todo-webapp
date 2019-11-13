@@ -7,7 +7,7 @@ import javax.validation.Valid;
 
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
-import edu.aam.app.service.ITodoService;
+import edu.aam.app.service.todo.ITodoService;
 import edu.aam.app.service.todo.TodoViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
