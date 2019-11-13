@@ -12,7 +12,7 @@ public class CommentViewModel {
     @Length(min = 1, max = 255, message = "Comment 1-255 characters.")
     private String content;
 
-    private Integer todoId;
+    private Long todoId;
 
     private Long commentId;
 
@@ -35,11 +35,11 @@ public class CommentViewModel {
         this.content = content;
     }
 
-    public Integer getTodoId() {
+    public Long getTodoId() {
         return todoId;
     }
 
-    public void setTodoId(Integer todoId) {
+    public void setTodoId(Long todoId) {
         this.todoId = todoId;
     }
 
