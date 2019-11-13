@@ -9,7 +9,7 @@ import java.util.Date;
 public class CommentViewModel {
 
     @NotBlank
-    @Length(min = 1, max = 10, message = "Comment 1-255 characters.")
+    @Length(min = 1, max = 255, message = "Comment 1-255 characters.")
     private String content;
 
     private Integer todoId;
