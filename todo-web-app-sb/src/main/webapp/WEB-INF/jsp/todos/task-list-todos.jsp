@@ -4,12 +4,12 @@
 <div class="container">
 	<br />
 	<div>
-		<a role="button" class="btn btn-primary btn-md" href="/add-todo">Add Todo</a>
+		<a role="button" class="btn btn-primary btn-md" href="/task-add-todo?taskId=${taskId}">Add Todo</a>
 	</div>
 	<br>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h3>List of TODO's</h3>
+			<h3>List of ${taskname} TODO's</h3>
 		</div>
 		<div class="panel-body">
 			<table class="table table-striped">

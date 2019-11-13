@@ -52,14 +52,18 @@ public class TodoController {
 	@RequestMapping(value = "/task-list-todos", method = RequestMethod.GET)
 	public String showTodosByTask(@RequestParam Long taskId, ModelMap model) {
 		Task task = todoService.getTaskById(taskId);
+		model.put("taskId", task.getId());
+		model.put("taskname", task.getTaskName());
 		model.put("todos", task.getTodoList());
 		return "todos/task-list-todos";
 	}
 
 	@RequestMapping(value = "/task-add-todo", method = RequestMethod.GET)
 	public String showAddTodoPageByTask(@RequestParam Long taskId,  ModelMap model) {
+		Task task = todoService.getTaskById(taskId);
 		TodoViewModel todoViewModel = new TodoViewModel();
-		todoViewModel.setTaskId(taskId);
+		todoViewModel.setTaskId(task.getId());
+		model.put("taskname", task.getTaskName());
 		model.addAttribute("todo", todoViewModel);
 		return "todos/todo";
 	}
