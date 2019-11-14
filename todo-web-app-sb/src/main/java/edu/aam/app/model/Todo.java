@@ -119,4 +119,25 @@ public class Todo {
 	public void setTaskList(Task taskList) {
 		this.taskList = taskList;
 	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	@Override
+	public String toString() {
+		return "Todo{" +
+				"id=" + id +
+				", userName='" + userName + '\'' +
+				", description='" + description + '\'' +
+				", targetDate=" + targetDate +
+				", status=" + status +
+				", task Name=" + taskList.getTaskName() +
+				", comments size=" + comments.size() +
+				'}';
+	}
 }

@@ -37,7 +37,7 @@ public class TodoController {
 		//String name = getLoggedInUserName(model);
 		Todo todo = todoService.getTodo(id);
 		model.put("taskname", todo.getTaskList().getTaskName());
-		model.put("todo", todoService.getTodo(id));
+		model.put("todo", todo);
 		return "todos/todo-details";
 	}
 
