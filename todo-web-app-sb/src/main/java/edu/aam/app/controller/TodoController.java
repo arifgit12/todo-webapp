@@ -32,6 +32,15 @@ public class TodoController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 
+	@RequestMapping(value = "/todo", method = RequestMethod.GET)
+	public String showTodo(@RequestParam Long id, ModelMap model) {
+		//String name = getLoggedInUserName(model);
+		Todo todo = todoService.getTodo(id);
+		model.put("taskname", todo.getTaskList().getTaskName());
+		model.put("todo", todoService.getTodo(id));
+		return "todos/todo-details";
+	}
+
 	@RequestMapping(value = "/list-todos", method = RequestMethod.GET)
 	public String showTodos(ModelMap model) {
 		String name = getLoggedInUserName(model);
