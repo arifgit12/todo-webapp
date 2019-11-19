@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
+import edu.aam.app.service.comment.CommentViewModel;
 import edu.aam.app.service.todo.ITodoService;
 import edu.aam.app.service.todo.TodoViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class TodoController {
 		Todo todo = todoService.getTodo(id);
 		model.put("taskname", todo.getTaskList().getTaskName());
 		model.put("todo", todo);
+		model.put("commentDTO", new CommentViewModel());
 		return "todos/todo-details";
 	}
 

@@ -15,7 +15,7 @@
 				<table>
 					<c:forEach items="${todo.comments}" var="comment">
 						<tr>
-							<td>${comment.id}</td>
+							<td>#</td>
 							<td>${comment.content}</td>
 						</tr>
 					</c:forEach>
@@ -24,11 +24,45 @@
 			<br />
 			<div class="panel panel-primary">
 				<div class="panel-heading">Add Comment</div>
+				<br />
 				<div class="panel-body">
-
+					<form:form method="post" id="commentForm" modelAttribute="commentDTO">
+						<input type=hidden id="todoId" name="todoId"
+							   value="${todo.id}"/>
+						<fieldset class="form-group">
+							<form:textarea id="content" placeholder="comment..." path="content" class="form-control"
+								required="required" />
+							<form:errors path="content" cssClass="text-warning" />
+						</fieldset>
+						<button type="submit" class="btn btn-success">Comment</button>
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <%@ include file="../common/footer.jspf"%>
+<script>
+	$("#commentForm").submit(function (event) {
+		// Stop form from submitting normally
+        event.preventDefault();
+
+        // Get some values from elements on the page:
+        var jsonData = JSON.stringify({
+            content: $('#content').val(),
+            todoId: $('#todoId').val()
+        });
+        console.log(jsonData);
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "<c:url value="/comment"/>",
+            data: jsonData,
+            dataType: "json",
+            success: function (data) {
+                //console.log(data);
+                location.reload();
+            }
+		});
+	})
+</script>
