@@ -7,7 +7,7 @@
 			<br />
 			<h1>Task Name: ${taskname} </h1>
 			<h2>Details - ${todo.description}</h2>
-			<h3>Target date - ${todo.targetDate}</h3>
+			<h3>Target date - <fmt:formatDate pattern="dd/MM/yyyy" value="${todo.targetDate}" /></h3>
 			<h3>Status - ${todo.status}</h3>
 			<br />
 			<c:if test="${todo.comments.size() > 0}">
