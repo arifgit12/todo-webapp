@@ -22,22 +22,25 @@
 				</table>
 			</c:if>
 			<br />
-			<div class="panel panel-primary">
-				<div class="panel-heading">Add Comment</div>
-				<br />
-				<div class="panel-body">
-					<form:form method="post" id="commentForm" modelAttribute="commentDTO">
-						<input type=hidden id="todoId" name="todoId"
-							   value="${todo.id}"/>
-						<fieldset class="form-group">
-							<form:textarea id="content" placeholder="comment..." path="content" class="form-control"
-								required="required" />
-							<form:errors path="content" cssClass="text-warning" />
-						</fieldset>
-						<button type="submit" class="btn btn-success">Comment</button>
-					</form:form>
+			<c:if test = "${!todo.status}">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Add Comment</div>
+					<br />
+					<div class="panel-body">
+
+						<form:form method="post" id="commentForm" modelAttribute="commentDTO">
+							<input type=hidden id="todoId" name="todoId"
+								   value="${todo.id}"/>
+							<fieldset class="form-group">
+								<form:textarea id="content" placeholder="comment..." path="content" class="form-control"
+											   required="required" />
+								<form:errors path="content" cssClass="text-warning" />
+							</fieldset>
+							<button type="submit" class="btn btn-success">Comment</button>
+						</form:form>
+					</div>
 				</div>
-			</div>
+			</c:if>
 		</div>
 	</div>
 </div>
