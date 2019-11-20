@@ -20,7 +20,7 @@ public class Task {
     @Size(min = 10, message = "Enter at least 10 Characters...")
     private String description;
 
-    @OneToMany(mappedBy = "taskList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "taskList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Todo> todoList = new ArrayList<>();
 
     private String userName;
