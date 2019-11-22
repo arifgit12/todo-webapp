@@ -29,8 +29,15 @@
 										required="required" />
 							<form:errors path="description" cssClass="text-warning" />
 						</fieldset>
-
-						<button type="submit" class="btn btn-success">Save</button>
+						<c:choose>
+							<c:when test="${!isUpdate}">
+								<button type="submit" class="btn btn-success">Save</button>
+							</c:when>
+							<c:otherwise>
+								<a role="button" class="btn btn-warning" href="<c:url value="/list-tasks"/>">Cancel</a>
+								<button type="submit" class="btn btn-success">Update</button>
+							</c:otherwise>
+						</c:choose>
 					</form:form>
 				</div>
 			</div>

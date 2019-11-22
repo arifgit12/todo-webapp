@@ -52,6 +52,7 @@ public class TaskController {
     public String showUpdateTaskPage(@RequestParam long taskId, ModelMap model) {
         TaskViewModel taskViewModel = taskService.mapTaskViewModel(taskId);
         taskViewModel.setId(taskId);
+        model.put("isUpdate", true);
         model.addAttribute("task", taskViewModel);
         return "tasks/task";
     }
