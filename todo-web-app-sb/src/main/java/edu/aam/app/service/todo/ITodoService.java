@@ -26,5 +26,5 @@ public interface ITodoService {
 
 	Task getTaskById(Long id);
 
-	void putStatusTodo(Long id);
+	Todo putStatusTodo(Long id, Boolean status);
 }
