@@ -13,6 +13,7 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
+						<th>#</th>
 						<th>Description</th>
 						<th>Target Date</th>
 						<th>Completed</th>
@@ -22,6 +23,9 @@
 				<tbody>
 					<c:forEach items="${todos}" var="todo">
 						<tr>
+							<td style="padding-left: 30px;" >
+								<input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}"/>
+							</td>
 							<td>${todo.description}</td>
 							<td><fmt:formatDate value="${todo.targetDate}" pattern="dd/MM/yyyy" /></td>
 							<td>${todo.status}</td>
@@ -39,3 +43,14 @@
 
 </div>
 <%@ include file="common/footer.jspf"%>
+<script>
+    function isComplete(completeCheckBox) {
+        var isChecked = false;
+        if (completeCheckBox.checked == true) {
+            isChecked = true;
+        } else {
+            isChecked = false;
+        }
+        console.log(isChecked);
+    }
+</script>
