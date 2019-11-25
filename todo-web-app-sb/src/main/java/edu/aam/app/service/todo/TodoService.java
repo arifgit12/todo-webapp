@@ -69,6 +69,7 @@ public class TodoService implements ITodoService {
 	public Todo putStatusTodo(Long id, Boolean status) {
 		Todo todo = todoRepository.getOne(id);
 		todo.StatusUpdate(status);
+		todo.setUpdatedDate(new Date());
 		todoRepository.save(todo);
 		return todo;
 	}

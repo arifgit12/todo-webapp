@@ -2,6 +2,7 @@ package edu.aam.app.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -131,5 +132,13 @@ public class TodoController {
 	public String deleteTodo(@RequestParam long id) {
 		todoService.deleteTodo(id);
 		return "redirect:/list-todos";
+	}
+
+	@RequestMapping(value = "/checked", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Todo> checked(@RequestParam Long id, @RequestParam boolean complete, ModelMap model) {
+		Todo todo = todoService.putStatusTodo( id, complete);
+		String name = getLoggedInUserName(model);
+		return todoService.getTodosByUser(name);
 	}
 }
