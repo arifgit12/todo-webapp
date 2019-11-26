@@ -13,7 +13,7 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th style="padding-left: 30px;">#</th>
 						<th>Description</th>
 						<th>Target Date</th>
 						<th>Completed</th>
