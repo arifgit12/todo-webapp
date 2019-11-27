@@ -24,7 +24,14 @@
 					<c:forEach items="${todos}" var="todo">
 						<tr>
 							<td style="padding-left: 30px;" >
-								<input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}"/>
+								<c:choose>
+									<c:when test="${!todo.status}">
+										<input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}" />
+									</c:when>
+									<c:otherwise>
+										<input type="checkbox" id="chk" name="chkComplete" onClick="isComplete(this)" value="${todo.id}" checked="checked"/>
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td>${todo.description}</td>
 							<td><fmt:formatDate value="${todo.targetDate}" pattern="dd/MM/yyyy" /></td>
