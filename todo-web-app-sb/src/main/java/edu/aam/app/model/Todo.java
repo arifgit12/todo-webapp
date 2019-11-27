@@ -29,6 +29,7 @@ public class Todo {
 	private Date updatedDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "task_id")
 	private Task taskList;
 
 	@OneToMany(mappedBy = "toDo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -25,6 +25,7 @@ public class Comment implements Comparable<Comment> {
     private Date modifiedDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "todo_id")
     private Todo toDo;
 
     public Comment() {
