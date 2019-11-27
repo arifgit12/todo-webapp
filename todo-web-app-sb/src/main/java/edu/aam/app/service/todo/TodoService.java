@@ -68,7 +68,7 @@ public class TodoService implements ITodoService {
 	@Override
 	public Todo putStatusTodo(Long id, Boolean status) {
 		Todo todo = todoRepository.getOne(id);
-		todo.StatusUpdate(status);
+		todo.setStatus(status);
 		todo.setUpdatedDate(new Date());
 		todoRepository.save(todo);
 		return todo;

@@ -1,5 +1,7 @@
 package edu.aam.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -25,6 +27,7 @@ public class Task implements Serializable {
     private String description;
 
     @OneToMany(mappedBy = "taskList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Todo> todoList = new ArrayList<>();
 
     private String userName;

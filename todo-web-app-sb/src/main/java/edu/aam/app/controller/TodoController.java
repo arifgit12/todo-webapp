@@ -13,6 +13,8 @@ import edu.aam.app.service.todo.ITodoService;
 import edu.aam.app.service.todo.TodoViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -134,11 +136,13 @@ public class TodoController {
 		return "redirect:/list-todos";
 	}
 
-	@RequestMapping(value = "/checked", method = RequestMethod.GET)
+	@RequestMapping(value = "/checked/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Todo> checked(@RequestParam Long id, @RequestParam boolean complete, ModelMap model) {
-		Todo todo = todoService.putStatusTodo( id, complete);
-		String name = getLoggedInUserName(model);
-		return todoService.getTodosByUser(name);
+	public List<Todo> checked(@PathVariable("id") Long id, @RequestParam boolean complete) {
+		todoService.putStatusTodo(id, complete);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName(); //get logged in username
+		List<Todo> todos = todoService.getTodosByUser(username);
+		return todos;
 	}
 }
