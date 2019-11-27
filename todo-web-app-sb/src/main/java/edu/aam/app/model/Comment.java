@@ -3,11 +3,14 @@ package edu.aam.app.model;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "comments")
-public class Comment implements Comparable<Comment> {
+public class Comment implements Comparable<Comment>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column

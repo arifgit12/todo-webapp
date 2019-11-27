@@ -1,5 +1,6 @@
 package edu.aam.app.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +10,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "todos")
-public class Todo {
+public class Todo implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
