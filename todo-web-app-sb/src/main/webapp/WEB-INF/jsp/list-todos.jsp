@@ -52,14 +52,13 @@
 <%@ include file="common/footer.jspf"%>
 <script>
     function isComplete(completeCheckBox) {
-    	console.log(completeCheckBox.value);
+
         var isChecked = false;
         if (completeCheckBox.checked == true) {
             isChecked = true;
         } else {
             isChecked = false;
         }
-        console.log(isChecked);
 		$.ajax({
 			url: "/checked/" + completeCheckBox.value,
 			type: "GET",
@@ -68,7 +67,7 @@
 				location.reload();
 			},
 			error: function () {
-				alert('Unable to Call Checked Box');
+				//alert('Unable to Call Checked Box');
 			}
 		});
     }
