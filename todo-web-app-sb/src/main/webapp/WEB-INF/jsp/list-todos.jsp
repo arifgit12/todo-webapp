@@ -17,7 +17,7 @@
 						<th>Description</th>
 						<th>Target Date</th>
 						<th>Completed</th>
-						<th></th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,17 +37,11 @@
 							<td><fmt:formatDate value="${todo.targetDate}" pattern="dd/MM/yyyy" /></td>
 							<td>${todo.status}</td>
 							<td>
-								<c:choose>
-									<c:when test="${!todo.status}">
-										<a role="button" class="btn btn-warning" href="/todo?id=${todo.id}">View</a>
-										<a role="button" class="btn btn-success" href="/update-todo?id=${todo.id}">Update</a>
-										<a role="button" class="btn btn-warning" href="/delete-todo?id=${todo.id}">Delete</a>
-									</c:when>
-									<c:otherwise>
-
-									</c:otherwise>
-								</c:choose>
-
+								<a role="button" class="btn btn-warning" href="/todo?id=${todo.id}">View</a>
+								<c:if test = "${!todo.status}">
+									<a role="button" class="btn btn-success" href="/update-todo?id=${todo.id}">Update</a>
+									<a role="button" class="btn btn-warning" href="/delete-todo?id=${todo.id}">Delete</a>
+								</c:if>
 							</td>
 						</tr>
 					</c:forEach>
