@@ -1,5 +1,7 @@
 package edu.aam.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +38,7 @@ public class Todo implements Serializable {
 	private Task taskList;
 
 	@OneToMany(mappedBy = "toDo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
 	List<Comment> comments = new ArrayList<>();
 
 	public Todo() {
