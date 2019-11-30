@@ -9,7 +9,7 @@
 	<br>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h3>List of ${taskname} TODO's</h3>
+			<h3>${taskname} TODO's</h3>
 		</div>
 		<div class="panel-body">
 			<table class="table table-striped">
