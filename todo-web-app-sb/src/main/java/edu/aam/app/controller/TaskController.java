@@ -3,6 +3,8 @@ package edu.aam.app.controller;
 import edu.aam.app.model.Task;
 import edu.aam.app.service.task.TaskService;
 import edu.aam.app.service.task.TaskViewModel;
+import edu.aam.app.service.user.UserService;
+import edu.aam.app.util.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +22,9 @@ public class TaskController {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/add-task", method = RequestMethod.GET)
     public String showAddTaskPage(ModelMap model) {
@@ -44,7 +49,7 @@ public class TaskController {
 
     @RequestMapping(value = "/list-tasks", method = RequestMethod.GET)
     public String showTasks(ModelMap model) {
-        model.put("tasks", taskService.getAllTasks());
+        model.put("tasks", userService.findTaskByUserEmail(AuthenticatedUser.findLoggedInUsername()));
         return "tasks/list-tasks";
     }
 

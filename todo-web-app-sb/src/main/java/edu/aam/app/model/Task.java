@@ -30,6 +30,10 @@ public class Task implements Serializable {
     @JsonIgnore
     private List<Todo> todoList = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String userName;
 
     public Task() {
@@ -81,5 +85,13 @@ public class Task implements Serializable {
 
     public void setTodoList(List<Todo> todoList) {
         this.todoList = todoList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

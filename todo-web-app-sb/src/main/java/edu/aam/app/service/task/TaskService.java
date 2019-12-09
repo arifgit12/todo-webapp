@@ -2,6 +2,8 @@ package edu.aam.app.service.task;
 
 import edu.aam.app.model.Task;
 import edu.aam.app.repository.TaskRepository;
+import edu.aam.app.repository.UserRepository;
+import edu.aam.app.util.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ public class TaskService implements ITaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
@@ -20,7 +25,9 @@ public class TaskService implements ITaskService {
 
     @Override
     public Task save(Task task) {
-        Task saveTask = taskRepository.save(task);
+        System.out.println(AuthenticatedUser.findLoggedInUsername());
+        task.setUser(userRepository.findByEmail(AuthenticatedUser.findLoggedInUsername()));
+        Task saveTask = taskRepository.saveAndFlush(task);
         return saveTask;
     }
 
