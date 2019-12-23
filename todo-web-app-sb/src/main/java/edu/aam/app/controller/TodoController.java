@@ -11,6 +11,7 @@ import edu.aam.app.model.Todo;
 import edu.aam.app.service.comment.CommentViewModel;
 import edu.aam.app.service.todo.ITodoService;
 import edu.aam.app.service.todo.TodoViewModel;
+import edu.aam.app.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
@@ -28,6 +29,9 @@ public class TodoController {
 
 	@Autowired
 	private ITodoService todoService;
+
+	@Autowired
+	private UserService userService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -49,7 +53,7 @@ public class TodoController {
 	@RequestMapping(value = "/list-todos", method = RequestMethod.GET)
 	public String showTodos(ModelMap model) {
 		String name = getLoggedInUserName(model);
-		model.put("todos", todoService.getTodosByUser(name));
+		model.put("todos", userService.getTodoByUserName(name));
 		return "list-todos";
 	}
 

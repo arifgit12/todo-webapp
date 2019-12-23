@@ -1,6 +1,7 @@
 package edu.aam.app.service.user;
 
 import edu.aam.app.model.Task;
+import edu.aam.app.model.Todo;
 import edu.aam.app.model.User;
 import edu.aam.app.model.UserRole;
 import edu.aam.app.repository.UserRepository;
@@ -29,6 +30,16 @@ public class UserService {
     public List<Task> findTaskByUserEmail(String email) {
         User user = userRepository.findByEmail(email);
         return user.getTaskLists();
+    }
+
+    public List<Todo> getTodoByUserName(String userName) {
+        User user = userRepository.findByEmail(userName);
+        List<Task> taskList = user.getTaskLists();
+        List<Todo> todoList = new ArrayList<>();
+        for (Task task: taskList) {
+            todoList.addAll(task.getTodoList());
+        }
+        return todoList;
     }
 
     public void DTOsave(UserDTO userDTO) {
