@@ -42,6 +42,12 @@ public class UserService {
         return todoList;
     }
 
+    public Todo getTodoByUserName(String userName, Long todoId) {
+        List<Todo> todoList = getTodoByUserName(userName);
+        Todo todo = todoList.stream().filter( td -> td.getId() == todoId ).findFirst().orElse(null);
+        return todo;
+    }
+
     public void DTOsave(UserDTO userDTO) {
         UserRole userRole = new UserRole();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

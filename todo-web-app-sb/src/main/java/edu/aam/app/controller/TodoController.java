@@ -42,11 +42,13 @@ public class TodoController {
 
 	@RequestMapping(value = "/todo", method = RequestMethod.GET)
 	public String showTodo(@RequestParam Long id, ModelMap model) {
-		//String name = getLoggedInUserName(model);
-		Todo todo = todoService.getTodo(id);
-		model.put("taskname", todo.getTaskList().getTaskName());
-		model.put("todo", todo);
-		model.put("commentDTO", new CommentViewModel());
+		String name = getLoggedInUserName(model);
+		Todo todo = userService.getTodoByUserName(name, id);
+		if (todo != null) {
+			model.put("taskname", todo.getTaskList().getTaskName());
+			model.put("todo", todo);
+			model.put("commentDTO", new CommentViewModel());
+		}
 		return "todos/todo-details";
 	}
 
