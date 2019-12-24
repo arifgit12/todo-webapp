@@ -55,18 +55,21 @@ public class TaskController {
 
     @RequestMapping(value = "/update-task", method = RequestMethod.GET)
     public String showUpdateTaskPage(@RequestParam long taskId, ModelMap model) {
-        TaskViewModel taskViewModel = taskService.mapTaskViewModel(taskId);
-        taskViewModel.setId(taskId);
-        model.put("isUpdate", true);
-        model.addAttribute("task", taskViewModel);
-        return "tasks/task";
+        TaskViewModel taskViewModel = taskService.mapTaskViewModel(taskId, AuthenticatedUser.findLoggedInUsername());
+
+        if (taskViewModel != null) {
+            model.addAttribute("task", taskViewModel);
+        }
+
+        return "tasks/update-task";
     }
 
     @RequestMapping(value = "/update-task", method = RequestMethod.POST)
-    public String updateTask(ModelMap model, @Valid TaskViewModel taskViewModel, BindingResult result) {
+    public String updateTask(@RequestParam long taskId, ModelMap model, @Valid TaskViewModel taskViewModel, BindingResult result) {
 
         if (result.hasErrors()) {
-            return "tasks/task";
+            model.addAttribute("task", taskViewModel);
+            return "tasks/update-task";
         }
 
         taskService.putTask(taskViewModel.getId(), taskViewModel);
