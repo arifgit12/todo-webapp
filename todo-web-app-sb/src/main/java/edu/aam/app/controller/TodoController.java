@@ -9,9 +9,11 @@ import javax.validation.Valid;
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 import edu.aam.app.service.comment.CommentViewModel;
+import edu.aam.app.service.task.ITaskService;
 import edu.aam.app.service.todo.ITodoService;
 import edu.aam.app.service.todo.TodoViewModel;
 import edu.aam.app.service.user.UserService;
+import edu.aam.app.util.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
@@ -29,6 +31,9 @@ public class TodoController {
 
 	@Autowired
 	private ITodoService todoService;
+
+	@Autowired
+	private ITaskService taskService;
 
 	@Autowired
 	private UserService userService;
@@ -71,10 +76,13 @@ public class TodoController {
 
 	@RequestMapping(value = "/task-list-todos", method = RequestMethod.GET)
 	public String showTodosByTask(@RequestParam Long taskId, ModelMap model) {
-		Task task = todoService.getTaskById(taskId);
-		model.put("taskId", task.getId());
-		model.put("taskname", task.getTaskName());
-		model.put("todos", task.getTodoList());
+		Task task = taskService.getTaskByUserName(taskId, AuthenticatedUser.findLoggedInUsername());
+		if(task != null) {
+			model.put("taskId", task.getId());
+			model.put("taskname", task.getTaskName());
+			model.put("todos", task.getTodoList());
+		}
+
 		return "todos/task-list-todos";
 	}
 

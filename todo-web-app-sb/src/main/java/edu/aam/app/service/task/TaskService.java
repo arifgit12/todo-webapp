@@ -37,6 +37,15 @@ public class TaskService implements ITaskService {
     }
 
     @Override
+    public Task getTaskByUserName(Long id, String username) {
+        Task task = taskRepository.findTaskById(id);
+        if( task != null && task.getUser().getEmail().contentEquals(username)) {
+            return task;
+        }
+        return null;
+    }
+
+    @Override
     public Task putTask(Long id, TaskViewModel taskViewModel) {
         Task task = taskRepository.getOne(id);
         if(task == null) {
