@@ -38,11 +38,8 @@ public class TaskService implements ITaskService {
 
     @Override
     public Task getTaskByUserName(Long id, String username) {
-        Task task = taskRepository.findTaskById(id);
-        if( task != null && task.getUser().getEmail().contentEquals(username)) {
-            return task;
-        }
-        return null;
+        Task task = taskRepository.findTaskById(id, username);
+        return task;
     }
 
     @Override
