@@ -8,15 +8,19 @@
 			<li class="nav-item active">
 				<a class="nav-link" href="<c:url value="/"/>">Home <span class="sr-only">(user)</span></a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/list-tasks" />">Tasks</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/list-todos" />">Todos</a>
-			</li>
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<li class="nav-item">
+					<a class="nav-link" href="<c:url value="/list-tasks" />">Tasks</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<c:url value="/list-todos" />">Todos</a>
+				</li>
+			</c:if>
 		</ul>
 		<ul class="navbar-nav ml-auto">
-			<li><a class="nav-link" href="<c:url value="/logout"/>">Logout</a></li>
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<li><a class="nav-link" href="<c:url value="/logout"/>">Logout</a></li>
+			</c:if>
 		</ul>
 	</div>
 </nav>
