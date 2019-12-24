@@ -1,5 +1,6 @@
 package edu.aam.app.service.todo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -72,5 +73,18 @@ public class TodoService implements ITodoService {
 		todo.setUpdatedDate(new Date());
 		todoRepository.save(todo);
 		return todo;
+	}
+
+	@Override
+	public List<Todo> getTodoListByUserName(String username) {
+		List<Todo> todoList = todoRepository.findAll();
+		List<Todo> filteredTodo = new ArrayList<>();
+		for (Todo todo: todoList) {
+			if(todo.getTaskList().getUser().getEmail().contentEquals(username)) {
+				filteredTodo.add(todo);
+			}
+		}
+
+		return filteredTodo;
 	}
 }

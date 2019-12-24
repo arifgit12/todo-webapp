@@ -27,4 +27,6 @@ public interface ITodoService {
 	Task getTaskById(Long id);
 
 	Todo putStatusTodo(Long id, Boolean status);
+
+	public List<Todo> getTodoListByUserName(String username);
 }
