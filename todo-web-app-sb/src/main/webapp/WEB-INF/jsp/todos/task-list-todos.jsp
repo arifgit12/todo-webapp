@@ -43,7 +43,7 @@
 			</div>
 		</div>
 	</c:if>
-	<c:if test="${taslId == null}">
+	<c:if test="${taskId == null}">
 		You are at wrong place
 	</c:if>
 </div>
