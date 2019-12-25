@@ -64,8 +64,8 @@ public class TaskService implements ITaskService {
 
     @Override
     public TaskViewModel mapTaskViewModel(Long taskId, String username) {
-        Task task = taskRepository.findById(taskId).orElse(null);
-        if (task != null && task.getUser().getEmail().contentEquals(username)) {
+        Task task = taskRepository.findTaskById(taskId, username);
+        if(task != null) {
             TaskViewModel taskViewModel = new TaskViewModel(task.getId(), task.getTaskName(), task.getDescription());
             return taskViewModel;
         }
