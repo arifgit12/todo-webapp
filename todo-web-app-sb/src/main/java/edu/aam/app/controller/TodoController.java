@@ -133,16 +133,23 @@ public class TodoController {
 		todoViewModel.setDescription(todo.getDescription());
 		todoViewModel.setTargetDate(todo.getTargetDate());
 		model.addAttribute("todo", todoViewModel);
+		model.put("taskname", todo.getTaskList().getTaskName());
 		return "todos/todo";
 	}
 
 	@RequestMapping(value = "/update-todo", method = RequestMethod.POST)
-	public String updateTodoByTask(ModelMap model, @Valid TodoViewModel todoViewModel, BindingResult result) {
+	public String updateTodoByTask(ModelMap model, @ModelAttribute("todo") TodoViewModel todoViewModel, BindingResult bindingResult) {
 
-		if (result.hasErrors()) {
+		Todo todo = todoService.getTodo(todoViewModel.getTodoId());
+
+		todoValidator.validate(todoViewModel, bindingResult);
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("todo", todoViewModel);
+			model.put("taskname", todo.getTaskList().getTaskName());
 			return "todos/todo";
 		}
-		Todo todo = todoService.getTodo(todoViewModel.getTodoId());
+
 		todo.setDescription(todoViewModel.getDescription());
 		todo.setTargetDate(todoViewModel.getTargetDate());
 		todo.setStatus(false);
