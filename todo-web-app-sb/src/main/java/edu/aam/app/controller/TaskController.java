@@ -39,7 +39,6 @@ public class TaskController {
             return "tasks/task";
         }
 
-        task.setUserName(getLoggedInUserName(model));
         task.setDescription(task.getDescription());
         task.setTaskName(task.getTaskName());
         taskService.save(task);
@@ -75,15 +74,5 @@ public class TaskController {
         taskService.putTask(taskViewModel.getId(), taskViewModel);
 
         return "redirect:/list-tasks";
-    }
-
-    private String getLoggedInUserName(ModelMap model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            return ((UserDetails) principal).getUsername();
-        }
-
-        return principal.toString();
     }
 }
