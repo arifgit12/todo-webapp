@@ -11,19 +11,17 @@
 					<form:form method="post" modelAttribute="todo">
 						<form:hidden path="todoId" />
 						<form hidden path="taskId" />
-						<fieldset class="form-group">
+						<div class="form-group ${status.error ? 'has-error' : ''}">
 							<form:label path="description">Description</form:label>
-							<form:input path="description" type="text" class="form-control"
-										required="required" />
-							<form:errors path="description" cssClass="text-warning" />
-						</fieldset>
+							<form:input type="text" path="description" class="form-control" />
+							<form:errors path="description" cssClass="text-warning"></form:errors>
+						</div>
 
-						<fieldset class="form-group">
+						<div class="form-group ${status.error ? 'has-error' : ''}">
 							<form:label path="targetDate">Target Date</form:label>
-							<form:input path="targetDate" type="text" class="form-control"
-										required="required" />
-							<form:errors path="targetDate" cssClass="text-warning" />
-						</fieldset>
+							<form:input type="text" path="targetDate" class="form-control" required="required"/>
+							<form:errors path="targetDate" cssClass="text-warning"></form:errors>
+						</div>
 
 						<button type="submit" class="btn btn-success">Save</button>
 					</form:form>

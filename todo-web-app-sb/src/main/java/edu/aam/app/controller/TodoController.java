@@ -14,6 +14,7 @@ import edu.aam.app.service.todo.ITodoService;
 import edu.aam.app.service.todo.TodoViewModel;
 import edu.aam.app.service.user.UserService;
 import edu.aam.app.util.AuthenticatedUser;
+import edu.aam.app.validator.TodoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
@@ -38,9 +39,12 @@ public class TodoController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private TodoValidator todoValidator;
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-
+		binder.addValidators(todoValidator);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
@@ -97,13 +101,17 @@ public class TodoController {
 	}
 
 	@RequestMapping(value = "/add-todo", method = RequestMethod.POST)
-	public String addTodoByTask(ModelMap model, @Valid TodoViewModel todoViewModel, BindingResult result) {
+	public String addTodoByTask(ModelMap model, @ModelAttribute("todo") TodoViewModel todoViewModel, BindingResult bindingResult) {
 
-		if (result.hasErrors()) {
+		Task task = todoService.getTaskById(todoViewModel.getTaskId());
+
+		todoValidator.validate(todoViewModel, bindingResult);
+		if (bindingResult.hasErrors()) {
+			model.put("taskname", task.getTaskName());
+			model.addAttribute("todo", todoViewModel);
 			return "todos/todo";
 		}
 
-		Task task = todoService.getTaskById(todoViewModel.getTaskId());
 		Todo todo = new Todo();
 		todo.setDescription(todoViewModel.getDescription());
 		todo.setTargetDate(todoViewModel.getTargetDate());
