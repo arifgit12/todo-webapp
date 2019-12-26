@@ -1,11 +1,13 @@
 package edu.aam.app.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import edu.aam.app.model.Comment;
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 import edu.aam.app.service.comment.CommentViewModel;
@@ -44,19 +46,34 @@ public class TodoController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.addValidators(todoValidator);
+		binder.addValidators(new TodoValidator());
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 
 	@RequestMapping(value = "/todo", method = RequestMethod.GET)
 	public String showTodo(@RequestParam Long id, ModelMap model) {
-		String name = getLoggedInUserName(model);
-		Todo todo = userService.getTodoByUserName(name, id);
+//		String name = getLoggedInUserName(model);
+		Todo todo = todoService.getTodo(id);
+		List<CommentViewModel> cvmList = new ArrayList<>();
+		System.out.println(todo);
 		if (todo != null) {
 			model.put("taskname", todo.getTaskList().getTaskName());
-			model.put("todo", todo);
-			model.put("commentDTO", new CommentViewModel());
+			TodoViewModel todovm = new TodoViewModel();
+			todovm.setTaskId(todo.getTaskList().getId());
+			todovm.setTodoId(todo.getId());
+			todovm.setDescription(todo.getDescription());
+			todovm.setStatus(todo.getStatus());
+			todovm.setTargetDate(todo.getTargetDate());
+			model.put("todovm", todovm);
+			for (Comment comment : todo.getComments()) {
+				CommentViewModel cvm = new CommentViewModel();
+				cvm.readCommentInfo(comment);
+				cvmList.add(cvm);
+			}
+			model.put("cvmList", cvmList);
+			//CommentViewModel commentDto = new CommentViewModel();
+			model.put("commentDTO", new TodoViewModel());
 		}
 		return "todos/todo-details";
 	}

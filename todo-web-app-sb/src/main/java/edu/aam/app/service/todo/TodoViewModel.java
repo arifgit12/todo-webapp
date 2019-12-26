@@ -11,6 +11,16 @@ public class TodoViewModel {
     private Date createdDate;
     private Date updatedDate;
 
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public Long getTaskId() {
         return taskId;
     }
