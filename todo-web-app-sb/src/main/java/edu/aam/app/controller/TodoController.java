@@ -39,9 +39,6 @@ public class TodoController {
 	private ITaskService taskService;
 
 	@Autowired
-	private UserService userService;
-
-	@Autowired
 	private TodoValidator todoValidator;
 
 	@InitBinder
@@ -53,10 +50,8 @@ public class TodoController {
 
 	@RequestMapping(value = "/todo", method = RequestMethod.GET)
 	public String showTodo(@RequestParam Long id, ModelMap model) {
-//		String name = getLoggedInUserName(model);
 		Todo todo = todoService.getTodo(id);
 		List<CommentViewModel> cvmList = new ArrayList<>();
-		System.out.println(todo);
 		if (todo != null) {
 			model.put("taskname", todo.getTaskList().getTaskName());
 			TodoViewModel todovm = new TodoViewModel();
@@ -80,19 +75,8 @@ public class TodoController {
 
 	@RequestMapping(value = "/list-todos", method = RequestMethod.GET)
 	public String showTodos(ModelMap model) {
-		String name = getLoggedInUserName(model);
-		model.put("todos", todoService.getTodoListByUserName(name));
+		model.put("todos", todoService.getTodoListByUserName(AuthenticatedUser.findLoggedInUsername()));
 		return "list-todos";
-	}
-
-	private String getLoggedInUserName(ModelMap model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		if (principal instanceof UserDetails) {
-			return ((UserDetails) principal).getUsername();
-		}
-
-		return principal.toString();
 	}
 
 	@RequestMapping(value = "/task-list-todos", method = RequestMethod.GET)
@@ -132,7 +116,6 @@ public class TodoController {
 		Todo todo = new Todo();
 		todo.setDescription(todoViewModel.getDescription());
 		todo.setTargetDate(todoViewModel.getTargetDate());
-		todo.setUserName(getLoggedInUserName(model));
 		todo.setTaskList(task);
 		todo.setStatus(false);
 		todo.setCreatedDate(new Date());
