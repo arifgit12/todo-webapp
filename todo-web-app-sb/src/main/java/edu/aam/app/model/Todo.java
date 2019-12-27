@@ -20,8 +20,6 @@ public class Todo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	private String userName;
-
 	@Size(min = 10, message = "Enter at least 10 Characters...")
 	private String description;
 
@@ -45,9 +43,8 @@ public class Todo implements Serializable {
 		super();
 	}
 
-	public Todo(String user, String desc, Date targetDate, boolean isDone) {
+	public Todo(String desc, Date targetDate, boolean isDone) {
 		super();
-		this.userName = user;
 		this.description = desc;
 		this.targetDate = targetDate;
 		this.status = isDone;
@@ -69,14 +66,6 @@ public class Todo implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	public String getDescription() {
@@ -139,7 +128,6 @@ public class Todo implements Serializable {
 	public String toString() {
 		return "Todo{" +
 				"id=" + id +
-				", userName='" + userName + '\'' +
 				", description='" + description + '\'' +
 				", targetDate=" + targetDate +
 				", status=" + status +

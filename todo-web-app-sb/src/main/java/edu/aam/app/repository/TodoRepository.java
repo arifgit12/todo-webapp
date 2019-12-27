@@ -10,8 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, Long>{
-	List<Todo> findByUserName(String user);
 
-	@Query("from Todo td where td.userName=:username order by td.status, td.targetDate DESC")
-	List<Todo> findOrderedTodo(@Param("username")String username);
+	@Query("from Todo td where td.taskList.user.email=:email order by td.status, td.targetDate DESC")
+	List<Todo> findOrderedTodo(@Param("email")String email);
 }
