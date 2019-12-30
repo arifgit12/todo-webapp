@@ -34,8 +34,6 @@ public class Task implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String userName;
-
     public Task() {
 
     }
@@ -45,22 +43,8 @@ public class Task implements Serializable {
         this.description = description;
     }
 
-    public Task(String taskName, @Size(min = 10, message = "Enter at least 10 Characters...") String description, String userName) {
-        this.taskName = taskName;
-        this.description = description;
-        this.userName = userName;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getTaskName() {

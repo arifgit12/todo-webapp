@@ -25,7 +25,6 @@ public class TaskService implements ITaskService {
 
     @Override
     public Task save(Task task) {
-        System.out.println(AuthenticatedUser.findLoggedInUsername());
         task.setUser(userRepository.findByEmail(AuthenticatedUser.findLoggedInUsername()));
         Task saveTask = taskRepository.saveAndFlush(task);
         return saveTask;
