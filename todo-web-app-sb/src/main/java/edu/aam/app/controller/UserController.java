@@ -41,7 +41,6 @@ public class UserController {
             return "register";
         }
 
-        System.out.println(userForm);
         userService.DTOsave(userForm);
 
         return "redirect:/login";
