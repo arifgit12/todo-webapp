@@ -55,13 +55,6 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public TaskViewModel mapTaskViewModel(Long taskId) {
-        Task task = taskRepository.getOne(taskId);
-        TaskViewModel taskViewModel = new TaskViewModel(task.getId(), task.getTaskName(), task.getDescription());
-        return taskViewModel;
-    }
-
-    @Override
     public TaskViewModel mapTaskViewModel(Long taskId, String username) {
         Task task = taskRepository.findTaskById(taskId, username);
         if(task != null) {

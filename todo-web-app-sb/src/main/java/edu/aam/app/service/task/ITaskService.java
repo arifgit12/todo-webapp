@@ -10,6 +10,5 @@ public interface ITaskService {
     Task getTaskById(Long id);
     Task getTaskByUserName(Long id, String username);
     Task putTask(Long id, TaskViewModel taskViewModel);
-    TaskViewModel mapTaskViewModel(Long taskId);
     TaskViewModel mapTaskViewModel(Long taskId, String username);
 }
