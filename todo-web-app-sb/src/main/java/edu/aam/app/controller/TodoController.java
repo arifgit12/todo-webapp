@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import edu.aam.app.model.Comment;
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
@@ -14,7 +12,6 @@ import edu.aam.app.service.comment.CommentViewModel;
 import edu.aam.app.service.task.ITaskService;
 import edu.aam.app.service.todo.ITodoService;
 import edu.aam.app.service.todo.TodoViewModel;
-import edu.aam.app.service.user.UserService;
 import edu.aam.app.util.AuthenticatedUser;
 import edu.aam.app.validator.TodoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +19,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -67,7 +63,6 @@ public class TodoController {
 				cvmList.add(cvm);
 			}
 			model.put("cvmList", cvmList);
-			//CommentViewModel commentDto = new CommentViewModel();
 			model.put("commentDTO", new TodoViewModel());
 		}
 		return "todos/todo-details";
