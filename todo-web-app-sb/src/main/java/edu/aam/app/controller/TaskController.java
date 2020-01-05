@@ -5,17 +5,19 @@ import edu.aam.app.service.task.TaskService;
 import edu.aam.app.service.task.TaskViewModel;
 import edu.aam.app.service.user.UserService;
 import edu.aam.app.util.AuthenticatedUser;
+import edu.aam.app.validator.TaskValidator;
+import edu.aam.app.validator.TodoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class TaskController {
@@ -26,21 +28,33 @@ public class TaskController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TaskValidator taskValidator;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(taskValidator);
+    }
+
     @RequestMapping(value = "/add-task", method = RequestMethod.GET)
     public String showAddTaskPage(ModelMap model) {
-        model.addAttribute("task", new Task());
+        model.addAttribute("task", new TaskViewModel());
         return "tasks/task";
     }
 
     @RequestMapping(value = "/add-task", method = RequestMethod.POST)
-    public String addTask(ModelMap model, @Valid Task task, BindingResult result) {
+    public String addTask(ModelMap model, @ModelAttribute("task") TaskViewModel taskViewModel, BindingResult bindingResult) {
 
-        if (result.hasErrors()) {
+        taskValidator.validate(taskViewModel, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("task", taskViewModel);
             return "tasks/task";
         }
 
-        task.setDescription(task.getDescription());
-        task.setTaskName(task.getTaskName());
+        Task task = new Task();
+        task.setDescription(taskViewModel.getDescription());
+        task.setTaskName(taskViewModel.getTaskName());
         taskService.save(task);
         model.clear();
         return "redirect:/list-tasks";
