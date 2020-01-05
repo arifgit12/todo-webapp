@@ -134,7 +134,7 @@ public class TodoController {
 		todoViewModel.setTargetDate(todo.getTargetDate());
 		model.addAttribute("todo", todoViewModel);
 		model.put("taskname", todo.getTaskList().getTaskName());
-		return "todos/todo";
+		return "todos/update-todo";
 	}
 
 	@RequestMapping(value = "/update-todo", method = RequestMethod.POST)
@@ -147,7 +147,7 @@ public class TodoController {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("todo", todoViewModel);
 			model.put("taskname", todo.getTaskList().getTaskName());
-			return "todos/todo";
+			return "todos/update-todo";
 		}
 
 		todo.setDescription(todoViewModel.getDescription());
