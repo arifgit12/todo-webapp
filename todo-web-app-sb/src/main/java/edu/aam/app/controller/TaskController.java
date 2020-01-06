@@ -78,9 +78,10 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/update-task", method = RequestMethod.POST)
-    public String updateTask(@RequestParam long taskId, ModelMap model, @Valid TaskViewModel taskViewModel, BindingResult result) {
+    public String updateTask(@RequestParam long taskId, ModelMap model, @ModelAttribute("task") TaskViewModel taskViewModel, BindingResult bindingResult) {
 
-        if (result.hasErrors()) {
+        taskValidator.validate(taskViewModel, bindingResult);
+        if (bindingResult.hasErrors()) {
             model.addAttribute("task", taskViewModel);
             return "tasks/update-task";
         }
