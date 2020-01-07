@@ -1,6 +1,5 @@
 package edu.aam.app.controller;
 
-import edu.aam.app.model.User;
 import edu.aam.app.service.user.UserDTO;
 import edu.aam.app.service.user.UserService;
 import edu.aam.app.validator.UserValidator;
@@ -62,9 +61,11 @@ public class UserController {
         return "";
     }
 
-    public ModelAndView error() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("error");
-        return modelAndView;
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public ModelAndView getProfile() {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/profile/user-details");
+        view.addObject("profile", new UserDTO());
+        return view;
     }
 }
