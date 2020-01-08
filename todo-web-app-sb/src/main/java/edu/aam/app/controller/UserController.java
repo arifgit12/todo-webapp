@@ -1,7 +1,9 @@
 package edu.aam.app.controller;
 
+import edu.aam.app.model.User;
 import edu.aam.app.service.user.UserDTO;
 import edu.aam.app.service.user.UserService;
+import edu.aam.app.util.AuthenticatedUser;
 import edu.aam.app.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,7 +67,12 @@ public class UserController {
     public ModelAndView getProfile() {
         ModelAndView view = new ModelAndView();
         view.setViewName("/profile/user-details");
-        view.addObject("profile", new UserDTO());
+        User user = userService.findUserByEmail(AuthenticatedUser.findLoggedInUsername());
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setEmail(user.getEmail());
+        view.addObject("profile", userDTO);
         return view;
     }
 }
