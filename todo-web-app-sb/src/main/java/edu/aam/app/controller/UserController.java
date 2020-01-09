@@ -75,4 +75,11 @@ public class UserController {
         view.addObject("profile", userDTO);
         return view;
     }
+
+    @RequestMapping(value = "/update-password", method = RequestMethod.GET)
+    public ModelAndView changePassword() {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/profile/update-password");
+        return view;
+    }
 }
