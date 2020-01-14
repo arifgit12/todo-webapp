@@ -22,6 +22,9 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
     public User findUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
         return user;
@@ -50,7 +53,6 @@ public class UserService {
 
     public void DTOsave(UserDTO userDTO) {
         UserRole userRole = new UserRole();
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         userRole.setRoleName(RoleNames.USER.name());
         User user = new User();
         user.setEmail(userDTO.getEmail());
@@ -59,6 +61,13 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setRoles(Arrays.asList(userRole));
         user.setCreatedDate(new Date());
+        userRepository.save(user);
+    }
+
+    public void updatePassword(String email, String newPassword) {
+        User user = userRepository.findByEmail(email);
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setUpdatedDate(new Date());
         userRepository.save(user);
     }
 }

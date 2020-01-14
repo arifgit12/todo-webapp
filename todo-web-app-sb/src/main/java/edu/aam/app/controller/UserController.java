@@ -1,17 +1,22 @@
 package edu.aam.app.controller;
 
 import edu.aam.app.model.User;
+import edu.aam.app.service.user.PasswordDTO;
 import edu.aam.app.service.user.UserDTO;
 import edu.aam.app.service.user.UserService;
 import edu.aam.app.util.AuthenticatedUser;
+import edu.aam.app.validator.PasswordValidator;
 import edu.aam.app.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserController {
@@ -22,9 +27,17 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
-    @InitBinder
+    @Autowired
+    private PasswordValidator passwordValidator;
+
+    @InitBinder("userForm")
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(userValidator);
+    }
+
+    @InitBinder("pwd")
+    protected void pwdInitBinder(WebDataBinder binder) {
+        binder.addValidators(passwordValidator);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -77,9 +90,24 @@ public class UserController {
     }
 
     @RequestMapping(value = "/update-password", method = RequestMethod.GET)
-    public ModelAndView changePassword() {
-        ModelAndView view = new ModelAndView();
-        view.setViewName("/profile/update-password");
-        return view;
+    public String changePassword(Model model) {
+        model.addAttribute("pwd", new PasswordDTO("", "", ""));
+        return "/profile/update-password";
+    }
+
+    @RequestMapping(value = "/update-password", method = RequestMethod.POST)
+    public String changePassword(@ModelAttribute("pwd") PasswordDTO pwdForm,
+                                 BindingResult bindingResult, Model model) {
+
+        passwordValidator.validate(pwdForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("pwd", pwdForm);
+            return "/profile/update-password";
+        }
+
+        userService.updatePassword(AuthenticatedUser.findLoggedInUsername(), pwdForm.getNewPassword());
+
+        return "redirect:/profile";
     }
 }
