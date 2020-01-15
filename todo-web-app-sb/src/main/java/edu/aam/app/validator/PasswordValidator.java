@@ -17,6 +17,9 @@ public class PasswordValidator implements Validator {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public boolean supports(Class<?> aClass) {
         return PasswordDTO.class.equals(aClass);
@@ -26,8 +29,6 @@ public class PasswordValidator implements Validator {
     public void validate(Object o, Errors errors) {
 
         PasswordDTO userPassword = (PasswordDTO) o;
-
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         User user = userService.findUserByEmail(AuthenticatedUser.findLoggedInUsername());
 
