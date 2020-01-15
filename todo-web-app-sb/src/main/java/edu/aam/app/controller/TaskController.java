@@ -1,12 +1,10 @@
 package edu.aam.app.controller;
 
-import edu.aam.app.model.Task;
 import edu.aam.app.service.task.ITaskService;
 import edu.aam.app.service.task.TaskViewModel;
 import edu.aam.app.service.user.UserService;
 import edu.aam.app.util.AuthenticatedUser;
 import edu.aam.app.validator.TaskValidator;
-import edu.aam.app.validator.TodoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
