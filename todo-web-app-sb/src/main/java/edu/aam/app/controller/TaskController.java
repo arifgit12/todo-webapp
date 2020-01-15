@@ -1,29 +1,24 @@
 package edu.aam.app.controller;
 
 import edu.aam.app.model.Task;
-import edu.aam.app.service.task.TaskService;
+import edu.aam.app.service.task.ITaskService;
 import edu.aam.app.service.task.TaskViewModel;
 import edu.aam.app.service.user.UserService;
 import edu.aam.app.util.AuthenticatedUser;
 import edu.aam.app.validator.TaskValidator;
 import edu.aam.app.validator.TodoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @Controller
 public class TaskController {
 
     @Autowired
-    private TaskService taskService;
+    private ITaskService taskService;
 
     @Autowired
     private UserService userService;
@@ -52,10 +47,7 @@ public class TaskController {
             return "tasks/task";
         }
 
-        Task task = new Task();
-        task.setDescription(taskViewModel.getDescription());
-        task.setTaskName(taskViewModel.getTaskName());
-        taskService.save(task);
+        taskService.save(taskViewModel, AuthenticatedUser.findLoggedInUsername());
         model.clear();
         return "redirect:/list-tasks";
     }

@@ -3,7 +3,6 @@ package edu.aam.app.service.task;
 import edu.aam.app.model.Task;
 import edu.aam.app.repository.TaskRepository;
 import edu.aam.app.repository.UserRepository;
-import edu.aam.app.util.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +18,28 @@ public class TaskService implements ITaskService {
     private UserRepository userRepository;
 
     @Override
+    public Task getTaskById(Long id) {
+        return taskRepository.getOne(id);
+    }
+
+    @Override
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
 
     @Override
-    public Task save(Task task) {
-        task.setUser(userRepository.findByEmail(AuthenticatedUser.findLoggedInUsername()));
-        Task saveTask = taskRepository.saveAndFlush(task);
-        return saveTask;
+    public Task save(TaskViewModel taskViewModel, String username) {
+
+        Task task = new Task();
+        task.setDescription(taskViewModel.getDescription());
+        task.setTaskName(taskViewModel.getTaskName());
+        task.setUser(userRepository.findByEmail(username));
+        return save(task);
     }
 
-    @Override
-    public Task getTaskById(Long id) {
-        return taskRepository.getOne(id);
+    private Task save(Task task) {
+        Task saveTask = taskRepository.saveAndFlush(task);
+        return saveTask;
     }
 
     @Override
