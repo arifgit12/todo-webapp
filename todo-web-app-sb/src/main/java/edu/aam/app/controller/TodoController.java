@@ -64,6 +64,8 @@ public class TodoController {
 			}
 			model.put("cvmList", cvmList);
 			model.put("commentDTO", new TodoViewModel());
+		} else {
+			model.put("nodata_found", "No Data Found");
 		}
 		return "todos/todo-details";
 	}

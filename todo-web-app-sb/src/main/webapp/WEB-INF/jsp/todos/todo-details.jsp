@@ -3,7 +3,7 @@
 <%@ include file="../common/navigation.jspf"%>
 <div class="container">
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3 ">
+		<div class="col-md-6 col-md-offset-3">
 			<br />
 			<h1>
 				<c:if test="${taskname != null}">
@@ -45,6 +45,13 @@
 						</div>
 					</div>
 				</c:if>
+			</c:if>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<c:if test="${nodata_found != null && nodata_found.length() > 0}">
+				${nodata_found}
 			</c:if>
 		</div>
 	</div>
