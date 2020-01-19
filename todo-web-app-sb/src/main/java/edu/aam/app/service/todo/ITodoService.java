@@ -8,6 +8,7 @@ import edu.aam.app.model.Todo;
 public interface ITodoService {
 
 	Todo getTodo(Long id);
+	Todo getTodo(Long id, String username);
 	void deleteTodo(long id);
 	void saveTodo(Todo todo);
 	Task getTaskById(Long id);

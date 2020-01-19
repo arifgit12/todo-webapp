@@ -46,7 +46,7 @@ public class TodoController {
 
 	@RequestMapping(value = "/todo", method = RequestMethod.GET)
 	public String showTodo(@RequestParam Long id, ModelMap model) {
-		Todo todo = todoService.getTodo(id);
+		Todo todo = todoService.getTodo(id, AuthenticatedUser.findLoggedInUsername());
 		List<CommentViewModel> cvmList = new ArrayList<>();
 		if (todo != null) {
 			model.put("taskname", todo.getTaskList().getTaskName());

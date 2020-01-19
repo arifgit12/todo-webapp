@@ -33,6 +33,11 @@ public class TodoService implements ITodoService {
 	}
 
 	@Override
+	public Todo getTodo(Long id, String username) {
+		return todoRepository.findUserTodoById(id, username);
+	}
+
+	@Override
 	public void deleteTodo(long id) {
 		Optional<Todo> todo = todoRepository.findById(id);
 		if (todo.isPresent()) {
