@@ -59,7 +59,6 @@ public class TodoServiceTest {
 
     @Test
     public void getTodoTest1() {
-        when(todoRepository.findById(0L)).thenReturn(null);
         Todo result = todoService.getTodo(0L);
         assertNull(result);
     }
