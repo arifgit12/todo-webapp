@@ -166,9 +166,7 @@ public class TodoController {
 	@ResponseBody
 	public List<Todo> checked(@PathVariable("id") Long id, @RequestParam boolean complete) {
 		todoService.putStatusTodo(id, complete);
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = auth.getName(); //get logged in username
-		List<Todo> todos = todoService.getTodosByUser(username);
+		List<Todo> todos = todoService.getTodosByUser(AuthenticatedUser.findLoggedInUsername());
 		return todos;
 	}
 }
