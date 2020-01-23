@@ -70,4 +70,12 @@ public class UserService {
         user.setUpdatedDate(new Date());
         userRepository.save(user);
     }
+
+    public UserDTO convertUserDto(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setEmail(user.getEmail());
+        return userDTO;
+    }
 }

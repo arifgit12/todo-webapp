@@ -81,11 +81,7 @@ public class UserController {
         ModelAndView view = new ModelAndView();
         view.setViewName("/profile/user-details");
         User user = userService.findUserByEmail(AuthenticatedUser.findLoggedInUsername());
-        UserDTO userDTO = new UserDTO();
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setEmail(user.getEmail());
-        view.addObject("profile", userDTO);
+        view.addObject("profile", userService.convertUserDto(user));
         return view;
     }
 

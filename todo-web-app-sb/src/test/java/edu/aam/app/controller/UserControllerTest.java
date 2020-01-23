@@ -1,21 +1,32 @@
 package edu.aam.app.controller;
 
 import edu.aam.app.model.User;
+import edu.aam.app.repository.TodoRepository;
+import edu.aam.app.repository.UserRepository;
+import edu.aam.app.service.user.UserDTO;
 import edu.aam.app.service.user.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.powermock.reflect.Whitebox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.servlet.ModelAndView;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -27,8 +38,11 @@ public class UserControllerTest {
     @Autowired
     private UserController userController;
 
-    @Autowired
+    @Mock
     private UserService userService;
+
+    @Mock
+    private UserRepository userRepository;
 
     private User sampleUser1;
     private User sampleUser2;
@@ -36,11 +50,14 @@ public class UserControllerTest {
 
     @Before
     public void setup() {
+        MockitoAnnotations.initMocks(this);
+        Whitebox.setInternalState(userController, "userService", userService);
+        Whitebox.setInternalState(userService, "userRepository", userRepository);
         sampleUser1 = new User();
-        sampleUser1.setFirstName("John");
-        sampleUser1.setLastName("Doe");
-        sampleUser1.setPassword("John1");
-        sampleUser1.setEmail("john@yahoo.com");
+        sampleUser1.setFirstName("John John");
+        sampleUser1.setLastName("Doe Doe");
+        sampleUser1.setPassword("John1234");
+        sampleUser1.setEmail("john1234@yahoo.com");
 
         // user for updated user
         sampleUser2 = new User();
@@ -72,4 +89,22 @@ public class UserControllerTest {
 
     }
 
+    @Test
+    public void getProfileViewTest() {
+
+        UserDTO userDto = new UserDTO();
+        userDto.setFirstName(sampleUser1.getFirstName());
+        userDto.setLastName(sampleUser1.getLastName());
+        userDto.setEmail(sampleUser1.getEmail());
+        // given
+        given(userService.findUserByEmail("abc123@gmail.com"))
+                .willReturn(sampleUser1);
+        given(userService.convertUserDto(sampleUser1)).willReturn(userDto);
+
+        // when
+        ResponseEntity<String> viewResponse = testRestTemplate.getForEntity("/profile", String.class);
+
+        // then
+        assertThat(viewResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 }
