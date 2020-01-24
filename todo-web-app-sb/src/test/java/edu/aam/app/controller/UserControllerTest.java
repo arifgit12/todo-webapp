@@ -107,4 +107,13 @@ public class UserControllerTest {
         // then
         assertThat(viewResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
+
+    @Test
+    public void getRegisterViewTest() {
+        // when
+        ResponseEntity<String> viewResponse = testRestTemplate.getForEntity("/register", String.class);
+
+        // then
+        assertThat(viewResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 }
