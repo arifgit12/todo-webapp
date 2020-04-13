@@ -11,6 +11,9 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.powermock.reflect.Whitebox;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -69,5 +72,19 @@ public class TaskServiceTest {
         Task result = taskService.getTaskByUserName(0L, "testmail@gmail.com");
         assertNotNull(result);
         assertEquals(task.getUser().getEmail(), "testmail@gmail.com");
+    }
+
+    @Test
+    public void getAllTasksTest() {
+        Task task1 = new Task();
+        task1.setTaskName("task1");
+        Task task2 = new Task();
+        task2.setTaskName("task2");
+
+        List<Task> stubResults = Arrays.asList(task1, task2);
+        when(taskRepository.findAll()).thenReturn(stubResults);
+        List<Task> results = taskService.getAllTasks();
+        assertNotNull(results);
+        assertEquals(2, results.size());
     }
 }
