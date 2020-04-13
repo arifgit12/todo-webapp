@@ -30,13 +30,13 @@
 							<td><fmt:formatDate value="${todo.targetDate}" pattern="dd/MM/yyyy" /></td>
 							<td>${todo.status}</td>
 							<td>
-								<a role="button" class="btn btn-warning" href="/todo?id=${todo.id}">View</a>
+								<a role="button" class="btn btn-success" href="/todo?id=${todo.id}">View</a>
 								<c:if test = "${todo.status}">
-									<a role="button" class="btn btn-success disabled" href="/update-todo?id=${todo.id}">Update</a>
+									<a role="button" class="btn btn-warning disabled" href="/update-todo?id=${todo.id}">Update</a>
 									<a role="button" class="btn btn-danger disabled" href="/delete-todo?id=${todo.id}">Delete</a>
 								</c:if>
 								<c:if test = "${!todo.status}">
-									<a role="button" class="btn btn-success" href="/update-todo?id=${todo.id}">Update</a>
+									<a role="button" class="btn btn-warning" href="/update-todo?id=${todo.id}">Update</a>
 									<a role="button" class="btn btn-danger" href="/delete-todo?id=${todo.id}">Delete</a>
 								</c:if>
 							</td>
