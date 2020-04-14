@@ -55,7 +55,7 @@ public class UserController {
             return "register";
         }
 
-        userService.DTOsave(userForm);
+        userService.createUser(userForm);
 
         return "redirect:/login";
     }

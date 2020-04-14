@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
@@ -25,16 +25,19 @@ public class UserService {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
+    @Override
     public User findUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
         return user;
     }
 
+    @Override
     public List<Task> findTaskByUserEmail(String email) {
         User user = userRepository.findByEmail(email);
         return user.getTaskLists();
     }
 
+    @Override
     public List<Todo> getTodoByUserName(String userName) {
         User user = userRepository.findByEmail(userName);
         List<Task> taskList = user.getTaskLists();
@@ -45,13 +48,15 @@ public class UserService {
         return todoList;
     }
 
+    @Override
     public Todo getTodoByUserName(String userName, Long todoId) {
         List<Todo> todoList = getTodoByUserName(userName);
         Todo todo = todoList.stream().filter( td -> td.getId() == todoId ).findFirst().orElse(null);
         return todo;
     }
 
-    public void DTOsave(UserDTO userDTO) {
+    @Override
+    public User createUser(UserDTO userDTO) {
         UserRole userRole = new UserRole();
         userRole.setRoleName(RoleNames.USER.name());
         User user = new User();
@@ -61,9 +66,11 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setRoles(Arrays.asList(userRole));
         user.setCreatedDate(new Date());
-        userRepository.save(user);
+        User saveUser = userRepository.save(user);
+        return saveUser;
     }
 
+    @Override
     public void updatePassword(String email, String newPassword) {
         User user = userRepository.findByEmail(email);
         user.setPassword(passwordEncoder.encode(newPassword));
@@ -71,6 +78,7 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Override
     public UserDTO convertUserDto(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setFirstName(user.getFirstName());
