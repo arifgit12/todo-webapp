@@ -23,8 +23,8 @@
                                             required="required" />
                                 <form:errors path="description" cssClass="text-warning" />
                             </fieldset>
-                            <a role="button" class="btn btn-warning" href="<c:url value="/list-tasks"/>">Cancel</a>
                             <button type="submit" class="btn btn-success">Update</button>
+                            <a role="button" class="btn btn-warning" href="<c:url value="/list-tasks"/>">Cancel</a>
                         </form:form>
                     </div>
                 </c:if>
