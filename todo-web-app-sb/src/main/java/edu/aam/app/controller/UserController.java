@@ -1,6 +1,7 @@
 package edu.aam.app.controller;
 
 import edu.aam.app.model.User;
+import edu.aam.app.service.user.IUserService;
 import edu.aam.app.service.user.PasswordDTO;
 import edu.aam.app.service.user.UserDTO;
 import edu.aam.app.service.user.UserService;
@@ -22,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
     private UserValidator userValidator;
@@ -105,5 +106,11 @@ public class UserController {
         userService.updatePassword(AuthenticatedUser.findLoggedInUsername(), pwdForm.getNewPassword());
 
         return "redirect:/profile";
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String users(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
+        return "/users/list-users";
     }
 }

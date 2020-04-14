@@ -7,6 +7,7 @@ import edu.aam.app.model.User;
 import java.util.List;
 
 public interface IUserService {
+    List<User> getAllUsers();
     User findUserByEmail(String email);
     List<Task> findTaskByUserEmail(String email);
     List<Todo> getTodoByUserName(String userName);

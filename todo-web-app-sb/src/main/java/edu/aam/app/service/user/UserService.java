@@ -26,6 +26,11 @@ public class UserService implements IUserService {
     BCryptPasswordEncoder passwordEncoder;
 
     @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
     public User findUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
         return user;
