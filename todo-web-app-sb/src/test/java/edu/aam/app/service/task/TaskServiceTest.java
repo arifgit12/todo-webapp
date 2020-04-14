@@ -3,6 +3,7 @@ package edu.aam.app.service.task;
 import edu.aam.app.model.Task;
 import edu.aam.app.model.User;
 import edu.aam.app.repository.TaskRepository;
+import edu.aam.app.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,11 +29,15 @@ public class TaskServiceTest {
     @Mock
     private TaskRepository taskRepository;
 
+    @Mock
+    private UserRepository userRepository;
+
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
         taskService = new TaskService();
         Whitebox.setInternalState(taskService, "taskRepository", taskRepository);
+        Whitebox.setInternalState(taskService, "userRepository", userRepository);
     }
 
     private Task setTask() {
@@ -86,5 +93,35 @@ public class TaskServiceTest {
         List<Task> results = taskService.getAllTasks();
         assertNotNull(results);
         assertEquals(2, results.size());
+    }
+
+    @Test
+    public void saveTestFail() {
+
+        TaskViewModel taskViewModel = new TaskViewModel();
+        taskViewModel.setTaskName("task-Name");
+        taskViewModel.setDescription("task description");
+
+        when(userRepository.findByEmail(anyString())).thenReturn(setUser());
+        when(taskRepository.saveAndFlush(any())).thenReturn(setTask());
+
+        Task result = taskService.save(taskViewModel, "testmail@gmail.com");
+        assertNotNull(result);
+        assertNotEquals(taskViewModel.getTaskName(), result.getTaskName());
+    }
+
+    @Test
+    public void saveTestSuccess() {
+
+        TaskViewModel taskViewModel = new TaskViewModel();
+        taskViewModel.setTaskName("task1");
+        taskViewModel.setDescription("task description");
+
+        when(userRepository.findByEmail(anyString())).thenReturn(setUser());
+        when(taskRepository.saveAndFlush(any())).thenReturn(setTask());
+
+        Task result = taskService.save(taskViewModel, "testmail@gmail.com");
+        assertNotNull(result);
+        assertEquals(taskViewModel.getTaskName(), result.getTaskName());
     }
 }
