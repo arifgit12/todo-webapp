@@ -24,6 +24,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TodoController {
@@ -45,29 +46,31 @@ public class TodoController {
 	}
 
 	@RequestMapping(value = "/todo", method = RequestMethod.GET)
-	public String showTodo(@RequestParam Long id, ModelMap model) {
+	public ModelAndView showTodo(@RequestParam Long id) {
+
+		ModelAndView modelAndView = new ModelAndView("todos/todo-details");
 		Todo todo = todoService.getTodo(id, AuthenticatedUser.findLoggedInUsername());
 		List<CommentViewModel> cvmList = new ArrayList<>();
 		if (todo != null) {
-			model.put("taskname", todo.getTaskList().getTaskName());
+			modelAndView.addObject("taskname", todo.getTaskList().getTaskName());
 			TodoViewModel todovm = new TodoViewModel();
 			todovm.setTaskId(todo.getTaskList().getId());
 			todovm.setTodoId(todo.getId());
 			todovm.setDescription(todo.getDescription());
 			todovm.setStatus(todo.getStatus());
 			todovm.setTargetDate(todo.getTargetDate());
-			model.put("todovm", todovm);
+			modelAndView.addObject("todovm", todovm);
 			for (Comment comment : todo.getComments()) {
 				CommentViewModel cvm = new CommentViewModel();
 				cvm.readCommentInfo(comment);
 				cvmList.add(cvm);
 			}
-			model.put("cvmList", cvmList);
-			model.put("commentDTO", new TodoViewModel());
+			modelAndView.addObject("cvmList", cvmList);
+			modelAndView.addObject("commentDTO", new TodoViewModel());
 		} else {
-			model.put("nodata_found", "No Data Found");
+			modelAndView.addObject("nodata_found", "No Data Found");
 		}
-		return "todos/todo-details";
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "/list-todos", method = RequestMethod.GET)
