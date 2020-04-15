@@ -4,7 +4,7 @@
 
 <div class="container">
 	<br />
-	<br>
+	<br />
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h3>List of USER's</h3>
