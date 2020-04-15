@@ -113,4 +113,16 @@ public class UserController {
         model.addAttribute("users", userService.getAllUsers());
         return "/users/list-users";
     }
+
+    @RequestMapping(value = "/forgetpassword", method = RequestMethod.GET)
+    public String forgetPassword(Model model) {
+        model.addAttribute("userForm", new UserDTO());
+        return "forgetPassword";
+    }
+
+    @RequestMapping(value = "/forgetpassword", method = RequestMethod.POST)
+    public String forgetPassword(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
+        System.out.println(userForm);
+        return "redirect:/login";
+    }
 }
