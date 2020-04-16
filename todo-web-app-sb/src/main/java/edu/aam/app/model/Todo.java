@@ -17,7 +17,7 @@ public class Todo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 
 	@Size(min = 10, message = "Enter at least 10 Characters...")

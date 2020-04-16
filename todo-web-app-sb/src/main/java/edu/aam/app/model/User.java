@@ -12,7 +12,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -28,9 +28,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-//    @Column(name = "roleName")
-//    private String roleName;
-
     @Column(name = "createdate")
     private Date createdDate;
 
@@ -42,7 +39,12 @@ public class User {
     private List<Task> taskLists = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
+    @JoinTable(
+        name = "users_roles",
+        joinColumns = @JoinColumn(
+        name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(
+        name = "role_id", referencedColumnName = "id"))
     private List<UserRole> roles;
 
     public Long getId() {
