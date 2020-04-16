@@ -9,6 +9,7 @@ import edu.aam.app.util.AuthenticatedUser;
 import edu.aam.app.validator.PasswordValidator;
 import edu.aam.app.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -109,6 +110,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ADMIN')")
     public String users(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "/users/list-users";
