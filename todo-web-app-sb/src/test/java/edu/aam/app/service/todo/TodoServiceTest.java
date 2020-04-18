@@ -3,6 +3,7 @@ package edu.aam.app.service.todo;
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 import edu.aam.app.model.User;
+import edu.aam.app.repository.TaskRepository;
 import edu.aam.app.repository.TodoRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +13,13 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.powermock.reflect.Whitebox;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,17 +30,29 @@ public class TodoServiceTest {
     @Mock
     private TodoRepository todoRepository;
 
+    @Mock
+    private TaskRepository taskRepository;
+
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
         todoService = new TodoService();
         Whitebox.setInternalState(todoService, "todoRepository", todoRepository);
+        Whitebox.setInternalState(todoService, "taskRepository", taskRepository);
     }
 
     private Todo setTodo() {
         Todo todo = new Todo();
         todo.setTaskList(setTask());
         todo.setDescription("Todo t1");
+        todo.setCreatedDate(new Date());
+        return todo;
+    }
+
+    private Todo setTodo(String todoName) {
+        Todo todo = new Todo();
+        todo.setTaskList(setTask());
+        todo.setDescription(todoName);
         todo.setCreatedDate(new Date());
         return todo;
     }
@@ -69,5 +85,16 @@ public class TodoServiceTest {
         when(todoRepository.getOne(1L)).thenReturn(todo);
         Todo result = todoService.getTodo(1L);
         assertNotNull(result);
+    }
+
+    @Test
+    public void getTodosByUserTest() {
+        Todo todoExampe1 = setTodo("Todo Example 1");
+        Todo todoExample2 = setTodo("Todo Example 2");
+        List<Todo> dummyList = Arrays.asList(todoExampe1, todoExample2);
+        when(todoRepository.findOrderedTodo(anyString())).thenReturn(dummyList);
+        List<Todo> results = todoRepository.findOrderedTodo(setUser().getEmail());
+        assertNotNull(results);
+        assertEquals(2, results.size());
     }
 }
