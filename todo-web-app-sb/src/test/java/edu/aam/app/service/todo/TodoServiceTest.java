@@ -19,6 +19,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -96,5 +97,13 @@ public class TodoServiceTest {
         List<Todo> results = todoRepository.findOrderedTodo(setUser().getEmail());
         assertNotNull(results);
         assertEquals(2, results.size());
+    }
+
+    @Test
+    public void findUserTodoByIdTest() {
+        Todo todo = setTodo();
+        when(todoRepository.findUserTodoById(anyLong(), anyString())).thenReturn(todo);
+        Todo result = todoService.getTodo(1L, "test@mail.com");
+        assertNotNull(result);
     }
 }
