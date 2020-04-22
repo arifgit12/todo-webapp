@@ -124,7 +124,6 @@ public class UserController {
 
     @RequestMapping(value = "/forgetpassword", method = RequestMethod.POST)
     public String forgetPassword(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
-        System.out.println(userForm);
         return "redirect:/login";
     }
 }
