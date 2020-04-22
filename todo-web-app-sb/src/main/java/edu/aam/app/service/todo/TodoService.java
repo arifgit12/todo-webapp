@@ -46,8 +46,9 @@ public class TodoService implements ITodoService {
 	}
 
 	@Override
-	public void saveTodo(Todo todo) {
-		todoRepository.save(todo);
+	public Todo saveTodo(Todo newTodo) {
+		Todo todo = todoRepository.save(newTodo);
+		return todo;
 	}
 
 	@Override
