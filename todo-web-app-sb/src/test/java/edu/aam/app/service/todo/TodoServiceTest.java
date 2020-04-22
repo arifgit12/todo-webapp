@@ -19,8 +19,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -104,6 +103,14 @@ public class TodoServiceTest {
         Todo todo = setTodo();
         when(todoRepository.findUserTodoById(anyLong(), anyString())).thenReturn(todo);
         Todo result = todoService.getTodo(1L, "test@mail.com");
+        assertNotNull(result);
+    }
+
+    @Test
+    public void saveTodoTest() {
+        Todo todo = setTodo();
+        when(todoRepository.save(any())).thenReturn(todo);
+        Todo result = todoService.saveTodo(todo);
         assertNotNull(result);
     }
 }
