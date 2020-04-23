@@ -15,4 +15,5 @@ public interface IUserService {
     User createUser(UserDTO userDTO);
     void updatePassword(String email, String newPassword);
     UserDTO convertUserDto(User user);
+    User findUserByUserName(String username);
 }

@@ -91,4 +91,9 @@ public class UserService implements IUserService {
         userDTO.setEmail(user.getEmail());
         return userDTO;
     }
+
+    @Override
+    public User findUserByUserName(String username) {
+        return userRepository.findByUsername(username);
+    }
 }
