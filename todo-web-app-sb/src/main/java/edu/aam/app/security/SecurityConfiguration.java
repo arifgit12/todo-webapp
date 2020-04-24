@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             .antMatchers("/login", "/h2-console/**").permitAll()
             .antMatchers("/resources/**", "/register", "/forgetpassword", "/").permitAll()
             .antMatchers("/webjars/**").permitAll()
-            .antMatchers( "/*todo*/**", "/*task*/**").access("hasAnyRole('ADMIN','USER')")
+            .antMatchers( "/*todo*/**", "/*task*/**", "/*profile*/**").access("hasAnyRole('ADMIN','USER')")
             //.antMatchers( "/*users*/**").access("hasRole('ADMIN')")
             .and()
             .formLogin()
