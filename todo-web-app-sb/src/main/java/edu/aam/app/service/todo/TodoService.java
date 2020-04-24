@@ -13,7 +13,10 @@ import org.springframework.stereotype.Service;
 
 import edu.aam.app.repository.TodoRepository;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class TodoService implements ITodoService {
 
 	@Autowired
