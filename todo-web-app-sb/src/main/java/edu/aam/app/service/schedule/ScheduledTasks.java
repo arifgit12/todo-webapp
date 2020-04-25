@@ -36,7 +36,7 @@ public class ScheduledTasks {
     @Autowired
     IUserService userService;
 
-    @Scheduled(fixedRate = 5 * 60 * 1000)
+    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
     public void todoRemainder() {
         List<User> users = userService.getAllUsers();
         if (users.size() > 0) {
