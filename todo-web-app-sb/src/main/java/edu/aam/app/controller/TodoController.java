@@ -9,6 +9,7 @@ import edu.aam.app.model.Comment;
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 import edu.aam.app.service.comment.CommentViewModel;
+import edu.aam.app.service.notification.INotificationService;
 import edu.aam.app.service.task.ITaskService;
 import edu.aam.app.service.todo.ITodoService;
 import edu.aam.app.service.todo.TodoViewModel;
@@ -37,6 +38,19 @@ public class TodoController {
 
 	@Autowired
 	private TodoValidator todoValidator;
+
+	@Autowired
+	INotificationService notificationService;
+
+	@ModelAttribute("notification_number_todo")
+	private int getNotificationNumber() {
+		try {
+			return notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername());
+		} catch (Exception ex) {
+			//System.out.println(ex.getLocalizedMessage());
+		}
+		return 0;
+	}
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

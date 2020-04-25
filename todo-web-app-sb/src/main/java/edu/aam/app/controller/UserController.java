@@ -1,6 +1,7 @@
 package edu.aam.app.controller;
 
 import edu.aam.app.model.User;
+import edu.aam.app.service.notification.INotificationService;
 import edu.aam.app.service.user.IUserService;
 import edu.aam.app.service.user.PasswordDTO;
 import edu.aam.app.service.user.UserDTO;
@@ -27,51 +28,10 @@ public class UserController {
     private IUserService userService;
 
     @Autowired
-    private UserValidator userValidator;
-
-    @Autowired
     private PasswordValidator passwordValidator;
 
-    @InitBinder("userForm")
-    protected void initBinder(WebDataBinder binder) {
-        binder.addValidators(userValidator);
-    }
-
-    @InitBinder("pwd")
-    protected void pwdInitBinder(WebDataBinder binder) {
-        binder.addValidators(passwordValidator);
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(Model model) {
-        model.addAttribute("userForm", new UserDTO());
-        return "register";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
-
-        userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "register";
-        }
-
-        userService.createUser(userForm);
-
-        return "redirect:/login";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
-        return "login";
-    }
+    @Autowired
+    INotificationService notificationService;
 
     @GetMapping("/delete/{email}")
     public String delete(@PathVariable String email) {
@@ -84,12 +44,14 @@ public class UserController {
         view.setViewName("/profile/user-details");
         User user = userService.findUserByEmail(AuthenticatedUser.findLoggedInUsername());
         view.addObject("profile", userService.convertUserDto(user));
+        view.addObject("notification_number_todo", notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername()));
         return view;
     }
 
     @RequestMapping(value = "/update-password", method = RequestMethod.GET)
     public String changePassword(Model model) {
         model.addAttribute("pwd", new PasswordDTO("", "", ""));
+        model.addAttribute("notification_number_todo", notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername()));
         return "/profile/update-password";
     }
 
@@ -113,17 +75,7 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     public String users(Model model) {
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("notification_number_todo", notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername()));
         return "/users/list-users";
-    }
-
-    @RequestMapping(value = "/forgetpassword", method = RequestMethod.GET)
-    public String forgetPassword(Model model) {
-        model.addAttribute("userForm", new UserDTO());
-        return "forgetPassword";
-    }
-
-    @RequestMapping(value = "/forgetpassword", method = RequestMethod.POST)
-    public String forgetPassword(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
-        return "redirect:/login";
     }
 }

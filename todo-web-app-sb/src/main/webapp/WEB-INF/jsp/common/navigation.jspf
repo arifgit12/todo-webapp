@@ -16,6 +16,9 @@
 					<a class="nav-link" href="<c:url value="/list-todos" />">Todos</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" href="<c:url value="/nf-list" />">Notifications(${notification_number_todo})</a>
+				</li>
+				<li class="nav-item">
 					<c:if test="${pageContext.request.isUserInRole('ADMIN')}">
 						<a class="nav-link" href="/users">Users</a>
 					</c:if>

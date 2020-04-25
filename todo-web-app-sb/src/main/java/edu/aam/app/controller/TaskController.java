@@ -1,5 +1,6 @@
 package edu.aam.app.controller;
 
+import edu.aam.app.service.notification.INotificationService;
 import edu.aam.app.service.task.ITaskService;
 import edu.aam.app.service.task.TaskViewModel;
 import edu.aam.app.service.user.UserService;
@@ -24,9 +25,17 @@ public class TaskController {
     @Autowired
     private TaskValidator taskValidator;
 
+    @Autowired
+    INotificationService notificationService;
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(taskValidator);
+    }
+
+    @ModelAttribute("notification_number_todo")
+    private int getNotificationNumber(){
+        return notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername());
     }
 
     @RequestMapping(value = "/add-task", method = RequestMethod.GET)
