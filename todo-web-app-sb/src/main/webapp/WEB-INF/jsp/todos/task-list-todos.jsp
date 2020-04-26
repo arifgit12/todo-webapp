@@ -9,11 +9,11 @@
 			<a role="button" class="btn btn-primary btn-md" href="/add-todo?taskId=${taskId}">Add Todo</a>
 		</div>
 		<br>
-		<div class="panel panel-primary">
-			<div class="panel-heading">
+		<div class="card">
+			<div class="card-header">
 				<h3>${taskname} TODO's</h3>
 			</div>
-			<div class="panel-body">
+			<div class="card-body">
 				<table class="table table-striped">
 					<thead>
 					<tr>

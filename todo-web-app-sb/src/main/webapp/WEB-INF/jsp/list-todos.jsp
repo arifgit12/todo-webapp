@@ -5,11 +5,11 @@
 	<br />
 
 	<br>
-	<div class="panel panel-primary">
-		<div class="panel-heading">
+	<div class="card">
+		<div class="card-header">
 			<h3>List of all TODO's</h3>
 		</div>
-		<div class="panel-body">
+		<div class="card-body">
 			<table class="table table-striped">
 				<thead>
 					<tr>
