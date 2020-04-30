@@ -89,7 +89,7 @@ public class TodoController {
 
 	@RequestMapping(value = "/list-todos", method = RequestMethod.GET)
 	public String showTodos(ModelMap model) {
-		model.put("todos", todoService.getTodoListByUserName(AuthenticatedUser.findLoggedInUsername()));
+		model.put("todos", todoService.getTodosByUser(AuthenticatedUser.findLoggedInUsername()));
 		return "list-todos";
 	}
 
