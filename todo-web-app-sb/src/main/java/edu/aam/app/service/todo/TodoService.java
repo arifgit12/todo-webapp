@@ -1,9 +1,7 @@
 package edu.aam.app.service.todo;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
@@ -26,8 +24,8 @@ public class TodoService implements ITodoService {
 	private TaskRepository taskRepository;
 
 	@Override
-	public List<Todo> getTodosByUser(String user) {
-		return todoRepository.findOrderedTodo(user);
+	public List<Todo> getTodosByUser(String username) {
+		return todoRepository.findOrderedTodo(username);
 	}
 
 	@Override
@@ -70,14 +68,13 @@ public class TodoService implements ITodoService {
 
 	@Override
 	public List<Todo> getTodoListByUserName(String username) {
-		List<Todo> todoList = todoRepository.findAll();
-		List<Todo> filteredTodo = new ArrayList<>();
-		for (Todo todo: todoList) {
-			if(todo.getTaskList().getUser().getEmail().contentEquals(username)) {
-				filteredTodo.add(todo);
-			}
-		}
 
-		return filteredTodo;
+		List<Todo> todoList = todoRepository.findAll().stream()
+				.filter( td -> td.getTaskList().getUser().getEmail().contentEquals(username))
+				.sorted(Comparator.comparing(Todo::getTargetDate).reversed())
+				.sorted(Comparator.comparing(Todo::getStatus))
+				.collect(Collectors.toList());
+
+		return todoList;
 	}
 }

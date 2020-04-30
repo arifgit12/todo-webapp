@@ -1,12 +1,15 @@
 package edu.aam.app.service.task;
 
 import edu.aam.app.model.Task;
+import edu.aam.app.model.Todo;
 import edu.aam.app.repository.TaskRepository;
 import edu.aam.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskService implements ITaskService {
@@ -45,6 +48,10 @@ public class TaskService implements ITaskService {
     @Override
     public Task getTaskByUserName(Long id, String username) {
         Task task = taskRepository.findTaskById(id, username);
+        task.setTodoList(task.getTodoList().stream()
+                .sorted(Comparator.comparing(Todo::getTargetDate).reversed())
+                .sorted(Comparator.comparing(Todo::getStatus))
+                .collect(Collectors.toList()));
         return task;
     }
 
