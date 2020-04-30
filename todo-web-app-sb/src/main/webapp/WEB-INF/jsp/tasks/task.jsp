@@ -1,14 +1,12 @@
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
 <div class="container">
+	<br />
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3 ">
-			<div class="panel panel-primary">
-				<br />
-
-				<div class="panel-heading">Add TASK</div>
-
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-header text-primary">Add TASK</div>
+				<div class="card-body">
 					<form:form method="post" modelAttribute="task">
 						<form:hidden path="id" />
 						<fieldset class="form-group">
