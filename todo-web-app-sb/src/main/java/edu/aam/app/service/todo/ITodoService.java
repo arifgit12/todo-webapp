@@ -15,4 +15,5 @@ public interface ITodoService {
 	Todo putStatusTodo(Long id, Boolean status);
 	List<Todo> getTodosByUser(String user);
 	List<Todo> getTodoListByUserName(String username);
+	List<Todo> getTodosByUserNameAndStatus(String username, Boolean status);
 }

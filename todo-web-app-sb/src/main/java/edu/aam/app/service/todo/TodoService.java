@@ -77,4 +77,10 @@ public class TodoService implements ITodoService {
 
 		return todoList;
 	}
+
+	@Override
+	public List<Todo> getTodosByUserNameAndStatus(String username, Boolean status) {
+		List<Todo> todoList = todoRepository.findTodoByEmailAndStatus(username, status);
+		return todoList;
+	}
 }
