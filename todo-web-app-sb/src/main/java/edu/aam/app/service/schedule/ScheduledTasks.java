@@ -38,7 +38,7 @@ public class ScheduledTasks {
         List<User> users = userService.getAllUsers();
         if (users.size() > 0) {
             for (User user : users) {
-                List<Todo> todos = todoService.getTodoListByUserName(user.getEmail());
+                List<Todo> todos = todoService.getTodosByUserNameAndStatus(user.getEmail(), false);
                 for (Todo todo : todos) {
                     long diff = daysBetween(new Date(), todo.getTargetDate());
                     if ( diff >= 0  && diff < 2) {
