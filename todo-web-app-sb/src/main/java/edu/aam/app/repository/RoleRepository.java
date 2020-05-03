@@ -1,10 +1,10 @@
 package edu.aam.app.repository;
 
-import edu.aam.app.model.UserRole;
+import edu.aam.app.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepository extends JpaRepository<UserRole, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
 }

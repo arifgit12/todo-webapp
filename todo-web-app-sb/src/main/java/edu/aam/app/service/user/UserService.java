@@ -3,7 +3,8 @@ package edu.aam.app.service.user;
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 import edu.aam.app.model.User;
-import edu.aam.app.model.UserRole;
+import edu.aam.app.model.Role;
+import edu.aam.app.repository.RoleRepository;
 import edu.aam.app.repository.UserRepository;
 import edu.aam.app.util.RoleNames;
 import org.slf4j.Logger;
@@ -23,6 +24,9 @@ public class UserService implements IUserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
@@ -64,14 +68,15 @@ public class UserService implements IUserService {
 
     @Override
     public User createUser(UserDTO userDTO) {
-        UserRole userRole = new UserRole();
-        userRole.setRoleName(RoleNames.USER.name());
+
         User user = new User();
         user.setEmail(userDTO.getEmail());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        user.setRoles(Arrays.asList(userRole));
+        Role role = new Role();
+        role.setRoleName(RoleNames.USER.name());
+        user.setRoles(Arrays.asList(role));
         user.setCreatedDate(new Date());
         User saveUser = userRepository.save(user);
         return saveUser;

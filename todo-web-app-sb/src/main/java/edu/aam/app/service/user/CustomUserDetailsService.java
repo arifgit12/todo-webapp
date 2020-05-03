@@ -1,7 +1,7 @@
 package edu.aam.app.service.user;
 
 import edu.aam.app.model.User;
-import edu.aam.app.model.UserRole;
+import edu.aam.app.model.Role;
 import edu.aam.app.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (UserRole role : user.getRoles()){
+        for (Role role : user.getRoles()){
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
         }
 
