@@ -1,11 +1,10 @@
 package edu.aam.app.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "NOTIFICATIONS")
+@Table(name = "NOTIFICATIONS", schema = "BEN")
 public class Notification {
 
     @Id

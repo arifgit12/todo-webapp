@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "comments", schema = "BEN")
 public class Comment implements Comparable<Comment>, Serializable {
 
     private static final long serialVersionUID = 1L;

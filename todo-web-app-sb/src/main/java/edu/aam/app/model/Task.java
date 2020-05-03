@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tasks")
+@Table(name = "tasks", schema = "BEN")
 public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -11,7 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "todos")
+@Table(name = "todos", schema = "BEN")
 public class Todo implements Serializable {
 
 	private static final long serialVersionUID = 1L;

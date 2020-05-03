@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "USERS", schema = "BEN")
 public class User {
 
     @Id
@@ -40,12 +41,12 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-        name = "users_roles",
-        joinColumns = @JoinColumn(
-        name = "user_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(
-        name = "role_id", referencedColumnName = "id"))
-    private List<UserRole> roles;
+            name = "users_roles", schema =  "BEN",
+            joinColumns = @JoinColumn(
+                name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
     public Long getId() {
         return id;
@@ -107,11 +108,11 @@ public class User {
         this.taskLists = taskLists;
     }
 
-    public List<UserRole> getRoles() {
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<UserRole> roles) {
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
 
