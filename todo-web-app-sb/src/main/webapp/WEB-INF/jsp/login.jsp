@@ -2,10 +2,12 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <div class="container">
     <br />
-    <div class="panel panel-primary">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="form-heading">Log in</h2>
+        </div>
+        <div class="card-body">
             <form method="POST" action="${contextPath}/login" class="form-signin">
-                <h2 class="form-heading">Log in</h2>
                 <div class="form-group ${error != null ? 'has-error' : ''}">
                     <span>${message}</span>
                     <input name="username" type="text" class="form-control" placeholder="Email" />
