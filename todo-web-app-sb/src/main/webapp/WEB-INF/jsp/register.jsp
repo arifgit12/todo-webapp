@@ -2,10 +2,13 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <div class="container">
     <br />
-    <div class="panel panel-primary">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="form-signin-heading">Create your account</h2>
+        </div>
+        <div class="card-body">
             <form:form method="POST" modelAttribute="userForm" class="form-signin">
-                <h2 class="form-signin-heading">Create your account</h2>
+                <span class="text-warning">${error}</span>
                 <br />
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <form:input type="text" path="firstName" class="form-control" placeholder="First Name" required="required" />

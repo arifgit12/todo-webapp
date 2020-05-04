@@ -1,5 +1,6 @@
 package edu.aam.app.controller;
 
+import edu.aam.app.model.User;
 import edu.aam.app.service.user.IUserService;
 import edu.aam.app.service.user.UserDTO;
 import edu.aam.app.validator.PasswordValidator;
@@ -49,7 +50,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
+    public String register(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult, Model model) {
 
         userValidator.validate(userForm, bindingResult);
 
@@ -57,7 +58,11 @@ public class AuthController {
             return "register";
         }
 
-        userService.createUser(userForm);
+        User user = userService.createUser(userForm);
+        if (user == null) {
+            model.addAttribute("error", "Unable to Register User");
+            return "register";
+        }
 
         return "redirect:/login";
     }
