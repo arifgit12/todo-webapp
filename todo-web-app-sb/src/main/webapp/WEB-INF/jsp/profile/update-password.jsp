@@ -1,13 +1,12 @@
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
 <div class="container">
+    <br />
     <div class="row">
-        <br />
         <div class="col-md-6 col-md-offset-3 ">
-            <div class="panel panel-primary">
-                <br />
-                <div class="panel-heading">Update Password</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Update Password</div>
+                <div class="card-body">
                     <form:form method="post" action="update-password" modelAttribute="pwd">
                         <div class="form-group ${status.error ? 'has-error' : ''}">
                             <form:label path="currentPassword">Current Password</form:label>

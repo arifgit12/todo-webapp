@@ -1,13 +1,12 @@
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
 <div class="container">
+    <br />
     <div class="row">
-        <br />
         <div class="col-md-6 col-md-offset-3 ">
-            <div class="panel panel-primary">
-                <br />
-                <div class="panel-heading">Profile Details</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Profile Details</div>
+                <div class="card-body">
                     Name: ${profile.firstName} ${profile.lastName}
                     <br />
                     Email: ${profile.email}
