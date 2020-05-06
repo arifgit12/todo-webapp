@@ -1,11 +1,13 @@
 package edu.aam.app.controller;
 
 import edu.aam.app.model.User;
+import edu.aam.app.service.email.IEmailService;
 import edu.aam.app.service.user.IUserService;
 import edu.aam.app.service.user.UserDTO;
 import edu.aam.app.validator.PasswordValidator;
 import edu.aam.app.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -32,6 +34,10 @@ public class AuthController {
 
     @Autowired
     private PasswordValidator passwordValidator;
+
+    @Autowired
+    @Qualifier("sendGridEmailService")
+    private IEmailService emailService;
 
     @InitBinder("userForm")
     protected void initBinder(WebDataBinder binder) {
@@ -100,7 +106,15 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/forgetpassword", method = RequestMethod.POST)
-    public String forgetPassword(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
+    public String forgetPassword(HttpServletRequest request, @ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
+
+        String appUrl = "http://" + request.getServerName();
+        if(request.getServerPort() > 0) {
+            appUrl = appUrl +  ":" + request.getServerPort();
+        }
+
+        appUrl = appUrl +"/login";
+        emailService.sendForgetPasswordEmail(userForm.getEmail(), appUrl);
         return "redirect:/login";
     }
 }
