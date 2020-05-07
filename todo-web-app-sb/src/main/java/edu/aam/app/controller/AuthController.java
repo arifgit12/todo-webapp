@@ -1,9 +1,13 @@
 package edu.aam.app.controller;
 
+import edu.aam.app.model.ConfirmationToken;
 import edu.aam.app.model.User;
+import edu.aam.app.repository.ConfirmationTokenRepository;
+import edu.aam.app.service.account.IAccountService;
 import edu.aam.app.service.email.IEmailService;
 import edu.aam.app.service.user.IUserService;
 import edu.aam.app.service.user.UserDTO;
+import edu.aam.app.util.ServerUtil;
 import edu.aam.app.validator.PasswordValidator;
 import edu.aam.app.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +41,9 @@ public class AuthController {
     @Qualifier("sendGridEmailService")
     private IEmailService emailService;
 
+    @Autowired
+    private IAccountService accountService;
+
     @InitBinder("userForm")
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(userValidator);
@@ -55,8 +60,10 @@ public class AuthController {
         return "register";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult, Model model) {
+    @RequestMapping(value = "/register",  method= RequestMethod.POST)
+    public String register(HttpServletRequest request,
+                           @ModelAttribute("userForm") UserDTO userForm,
+                           BindingResult bindingResult, Model model) {
 
         userValidator.validate(userForm, bindingResult);
 
@@ -65,12 +72,16 @@ public class AuthController {
         }
 
         User user = userService.createUser(userForm);
+
         if (user == null) {
             model.addAttribute("error", "Unable to Register User");
             return "register";
         }
 
-        return "redirect:/login";
+        emailService.sendRegisterEmail(user, ServerUtil.getServerUrl(request));
+
+        model.addAttribute("email", user.getEmail());
+        return "successfulRegisteration";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -108,13 +119,24 @@ public class AuthController {
     @RequestMapping(value = "/forgetpassword", method = RequestMethod.POST)
     public String forgetPassword(HttpServletRequest request, @ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
 
-        String appUrl = "http://" + request.getServerName();
-        if(request.getServerPort() > 0) {
-            appUrl = appUrl +  ":" + request.getServerPort();
-        }
-
-        appUrl = appUrl +"/login";
+        String appUrl = ServerUtil.getServerUrl(request) +"/login";
         emailService.sendForgetPasswordEmail(userForm.getEmail(), appUrl);
         return "redirect:/login";
+    }
+
+    @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken) {
+
+        ConfirmationToken token = accountService.getConfirmationToken(confirmationToken);
+
+        if(token != null) {
+            userService.updateToken(token.getUser().getEmail(), true);
+            modelAndView.setViewName("accountVerified");
+        } else {
+            modelAndView.addObject("message","The link is invalid or broken!");
+            modelAndView.setViewName("registerError");
+        }
+
+        return modelAndView;
     }
 }

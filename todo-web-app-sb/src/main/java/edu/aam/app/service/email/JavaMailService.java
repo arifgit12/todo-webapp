@@ -28,6 +28,11 @@ public class JavaMailService implements IEmailService {
 
     }
 
+    @Override
+    public void sendRegisterEmail(User user, String confirmUrl) {
+
+    }
+
     private void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
