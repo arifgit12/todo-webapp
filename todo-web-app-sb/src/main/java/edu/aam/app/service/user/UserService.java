@@ -74,6 +74,7 @@ public class UserService implements IUserService {
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setEnabled(false);
         Role role = new Role();
         role.setRoleName(RoleNames.USER.name());
         user.setRoles(Arrays.asList(role));
@@ -102,5 +103,12 @@ public class UserService implements IUserService {
     @Override
     public User findUserByUserName(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User updateToken(String email, Boolean status) {
+        User user = userRepository.findByEmail(email);
+        user.setEnabled(status);
+        return userRepository.save(user);
     }
 }

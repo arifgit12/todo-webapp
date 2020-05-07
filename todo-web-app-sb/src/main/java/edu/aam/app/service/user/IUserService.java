@@ -16,4 +16,5 @@ public interface IUserService {
     void updatePassword(String email, String newPassword);
     UserDTO convertUserDto(User user);
     User findUserByUserName(String username);
+    User updateToken(String email, Boolean status);
 }
