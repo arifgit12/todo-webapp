@@ -130,7 +130,12 @@ public class AuthController {
         ConfirmationToken token = accountService.getConfirmationToken(confirmationToken);
 
         if(token != null) {
-            userService.updateToken(token.getUser().getEmail(), true);
+            if(token.getUser().isEnabled()) {
+                modelAndView.addObject("verifiedMessage","Your email has been already verified!");
+            } else {
+                userService.updateToken(token.getUser().getEmail(), true);
+                modelAndView.addObject("verifiedMessage","Congratulations! Your account has been activated and email is verified!");
+            }
             modelAndView.setViewName("accountVerified");
         } else {
             modelAndView.addObject("message","The link is invalid or broken!");

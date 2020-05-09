@@ -4,7 +4,7 @@
     <br />
     <br />
     <h2>
-        Congratulations! Your account has been activated and email is verified!
+        ${verifiedMessage}
     </h2>
 </div>
 <%@ include file="common/footer.jspf"%>
