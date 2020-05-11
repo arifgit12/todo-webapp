@@ -5,6 +5,8 @@
     <br />
     <h2>
         ${verifiedMessage}
+        <br />
     </h2>
+    <h3><a href="/login">Login</a></h3>
 </div>
 <%@ include file="common/footer.jspf"%>
