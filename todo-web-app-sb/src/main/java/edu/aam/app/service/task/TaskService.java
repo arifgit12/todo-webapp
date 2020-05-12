@@ -4,6 +4,8 @@ import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 import edu.aam.app.repository.TaskRepository;
 import edu.aam.app.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class TaskService implements ITaskService {
+
+    private static final Logger log = LoggerFactory.getLogger(TaskService.class);
 
     @Autowired
     private TaskRepository taskRepository;
@@ -48,10 +52,14 @@ public class TaskService implements ITaskService {
     @Override
     public Task getTaskByUserName(Long id, String username) {
         Task task = taskRepository.findTaskById(id, username);
-        task.setTodoList(task.getTodoList().stream()
-                .sorted(Comparator.comparing(Todo::getTargetDate).reversed())
-                .sorted(Comparator.comparing(Todo::getStatus))
-                .collect(Collectors.toList()));
+        try {
+            task.setTodoList(task.getTodoList().stream()
+                    .sorted(Comparator.comparing(Todo::getTargetDate).reversed())
+                    .sorted(Comparator.comparing(Todo::getStatus))
+                    .collect(Collectors.toList()));
+        } catch (NullPointerException e) {
+            log.info(e.getLocalizedMessage());
+        }
         return task;
     }
 
