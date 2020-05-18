@@ -9,6 +9,7 @@ import edu.aam.app.service.user.UserService;
 import edu.aam.app.util.AuthenticatedUser;
 import edu.aam.app.validator.PasswordValidator;
 import edu.aam.app.validator.UserValidator;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,10 @@ public class UserController {
     private PasswordValidator passwordValidator;
 
     @Autowired
-    INotificationService notificationService;
+    private INotificationService notificationService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping("/delete/{email}")
     public String delete(@PathVariable String email) {
@@ -42,8 +46,8 @@ public class UserController {
     public ModelAndView getProfile() {
         ModelAndView view = new ModelAndView();
         view.setViewName("/profile/user-details");
-        User user = userService.findUserByEmail(AuthenticatedUser.findLoggedInUsername());
-        view.addObject("profile", userService.convertUserDto(user));
+        UserDTO userDTO = modelMapper.map(userService.findUserByEmail(AuthenticatedUser.findLoggedInUsername()), UserDTO.class);
+        view.addObject("profile", userDTO);
         view.addObject("notification_number_todo", notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername()));
         return view;
     }

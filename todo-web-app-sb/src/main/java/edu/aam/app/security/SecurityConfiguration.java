@@ -1,6 +1,7 @@
 package edu.aam.app.security;
 
 import edu.aam.app.service.user.CustomUserDetailsService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,9 +30,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .antMatchers("/login", "/h2-console/**").permitAll()
-            .antMatchers("/resources/**", "/register", "/forgetpassword", "/").permitAll()
+            .antMatchers("/resources/**", "/register", "/forgetpassword", "/*profile*/**", "/").permitAll()
             .antMatchers("/webjars/**").permitAll()
-            .antMatchers( "/*todo*/**", "/*task*/**", "/*profile*/**").access("hasAnyRole('ADMIN','USER')")
+            .antMatchers( "/*todo*/**", "/*task*/**").access("hasAnyRole('ADMIN','USER')")
             //.antMatchers( "/*users*/**").access("hasRole('ADMIN')")
             .and()
             .formLogin()
@@ -54,5 +55,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Bean
     public AuthenticationManager customAuthenticationManager() throws Exception {
         return authenticationManager();
+    }
+
+    // Ref - https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }
