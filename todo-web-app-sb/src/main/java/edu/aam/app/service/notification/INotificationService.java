@@ -10,4 +10,6 @@ public interface INotificationService {
     int countUnseenNotifications(String username);
     List<Notification> getUnseenNotifications(String username);
     void makeAllNotificationsSeenByUser(String username);
+    void sendNotification(NotificationChannel notificationChannel,
+                          NotificationParams notificationParams);
 }

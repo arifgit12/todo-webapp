@@ -4,6 +4,8 @@ import edu.aam.app.model.Notification;
 import edu.aam.app.model.User;
 import edu.aam.app.repository.NotificationRepository;
 import edu.aam.app.service.user.IUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import java.util.List;
 @Service
 @Transactional
 public class NotificationService implements INotificationService {
+
+    private final Logger log = LoggerFactory.getLogger(NotificationService.class);
 
     @Autowired
     NotificationRepository notificationRepository;
@@ -49,5 +53,11 @@ public class NotificationService implements INotificationService {
             notification.setSeen(true);
             notificationRepository.save(notification);
         }
+    }
+
+    @Override
+    public void sendNotification(NotificationChannel notificationChannel, NotificationParams notificationParams) {
+        log.info("Sending {} to {} with Message {}", notificationChannel.name(),
+                notificationParams.getReceiver(), notificationParams.getMessage());
     }
 }
