@@ -16,4 +16,5 @@ public interface IUserService {
     void updatePassword(String email, String newPassword);
     User findUserByUserName(String username);
     User updateToken(String email, Boolean status);
+    void authenticate(String username, String password);
 }

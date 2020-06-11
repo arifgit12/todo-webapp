@@ -102,4 +102,9 @@ public class UserService implements IUserService {
         user.setEnabled(status);
         return userRepository.save(user);
     }
+
+    @Override
+    public void authenticate(String username, String password) {
+
+    }
 }
