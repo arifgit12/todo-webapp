@@ -26,6 +26,7 @@
                             <form:errors path="confirmPassword" cssClass="text-warning"></form:errors>
                         </div>
                         <button type="submit" class="btn btn-success">Update</button>
+                        <a role="button" class="btn btn-warning" href="<c:url value="/profile"/>">Cancel</a>
                     </form:form>
                 </div>
             </div>
