@@ -1,5 +1,5 @@
-		<script src="webjars/jquery/3.3.0/jquery.min.js"></script>
-		<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-		<script src="webjars/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+		<script src="${pageContext.request.contextPath}/webjars/jquery/3.3.0/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<script src="${pageContext.request.contextPath}/webjars/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 	</body>
 </html>

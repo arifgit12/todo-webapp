@@ -4,24 +4,24 @@
 
 <html>
 
-<head>
-	<title>Todo Management</title>
-	<link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-	<link href="webjars/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+	<head>
+		<title>Todo Management</title>
+		<link href="${pageContext.request.contextPath}/webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/webjars/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.min.css" rel="stylesheet">
 
-	<style>
-	.footer {
-		position: fixed;
-		left: 0;
-		bottom: 0;
-		width: 100%;
-		background-color: black;
-		color: white;
-		height: 100px;
-		text-align: center;
-	}
-	</style>
+		<style>
+			.footer {
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				background-color: black;
+				color: white;
+				height: 100px;
+				text-align: center;
+			}
+		</style>
 
-</head>
+	</head>
 
 <body>
