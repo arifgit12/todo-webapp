@@ -32,6 +32,18 @@ public class User {
     @Column(name = "enabled")
     private Boolean isEnabled;
 
+    /**
+     * User avatar.
+     */
+    @Column(name = "avatar", length = 1023)
+    private String avatar;
+
+    /**
+     * User description.
+     */
+    @Column(name = "description", length = 1023)
+    private String description;
+
     @Column(name = "createdate")
     private Date createdDate;
 
@@ -130,5 +142,21 @@ public class User {
     public void add(Task task) {
         task.setUser(this);
         this.taskLists.add(task);
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

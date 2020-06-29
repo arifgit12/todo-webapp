@@ -1,11 +1,5 @@
 package edu.aam.app.service.user;
 
-import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-
 public class UserDTO {
 
     private String firstName;
@@ -18,6 +12,10 @@ public class UserDTO {
     private String password;
 
     private String passwordConfirm;
+
+    private String avatar;
+
+    private String description;
 
     public String getFirstName() {
         return firstName;
@@ -59,12 +57,29 @@ public class UserDTO {
         this.password = password;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
+        return "User {" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
