@@ -5,8 +5,11 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3 ">
             <div class="card">
-                <div class="card-header">Profile Details</div>
+                <div class="card-header">
+                    <h4>Profile Details</h4>
+                </div>
                 <div class="card-body">
+                    <a class="btn btn-warning float-right" href="<c:url value="/profile/edit"/>">Edit</a>
                     Name: ${profile.firstName} ${profile.lastName}
                     <br />
                     Email: ${profile.email}

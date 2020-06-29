@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -50,6 +51,31 @@ public class UserController {
         view.addObject("profile", userDTO);
         view.addObject("notification_number_todo", notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername()));
         return view;
+    }
+
+    @RequestMapping(value = "/profile/edit", method = RequestMethod.GET)
+    public String editProfile(ModelMap model) {
+
+        UserDTO userForm = modelMapper.map(userService.findUserByEmail(AuthenticatedUser.findLoggedInUsername()), UserDTO.class);
+        model.addAttribute("profile", userForm);
+        model.addAttribute("notification_number_todo", notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername()));
+
+        return "profile/edit";
+    }
+
+    @RequestMapping(value = "/profile/edit", method = RequestMethod.POST)
+    public String editProfile(@ModelAttribute("profile") UserDTO userForm, ModelMap model,
+        BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        UserDTO userDTO = modelMapper.map(userService.findUserByEmail(AuthenticatedUser.findLoggedInUsername()), UserDTO.class);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("profile", userForm);
+            model.addAttribute("notification_number_todo", notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername()));
+
+            return "profile/edit";
+        }
+
+        return "redirect:/profile";
     }
 
     @RequestMapping(value = "/update-password", method = RequestMethod.GET)
