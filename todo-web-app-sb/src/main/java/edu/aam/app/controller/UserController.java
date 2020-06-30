@@ -7,10 +7,12 @@ import edu.aam.app.service.user.PasswordDTO;
 import edu.aam.app.service.user.UserDTO;
 import edu.aam.app.service.user.UserService;
 import edu.aam.app.util.AuthenticatedUser;
+import edu.aam.app.util.FilenameUtils;
 import edu.aam.app.validator.PasswordValidator;
 import edu.aam.app.validator.UserValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +22,20 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 @Controller
 public class UserController {
+
+    @Value("${image.path}")
+    private String UPLOADED_FOLDER;
 
     @Autowired
     private IUserService userService;
@@ -64,15 +75,33 @@ public class UserController {
     }
 
     @RequestMapping(value = "/profile/edit", method = RequestMethod.POST)
-    public String editProfile(@ModelAttribute("profile") UserDTO userForm, ModelMap model,
-        BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String editProfile(@ModelAttribute("profile") UserDTO userForm,
+        @RequestParam("imageFile") MultipartFile file,
+        ModelMap model,
+        BindingResult bindingResult) {
 
         UserDTO userDTO = modelMapper.map(userService.findUserByEmail(AuthenticatedUser.findLoggedInUsername()), UserDTO.class);
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("profile", userForm);
-            model.addAttribute("notification_number_todo", notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername()));
 
+        model.addAttribute("profile", userForm);
+        model.addAttribute("notification_number_todo", notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername()));
+
+        if (file.isEmpty() && (userDTO.getAvatar() == null || userDTO.getAvatar().length() < 1)) {
+            model.addAttribute("message", "Please select a file to upload");
             return "profile/edit";
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "profile/edit";
+        }
+
+        try {
+            String fileExt = FilenameUtils.getExtension(file.getOriginalFilename());
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return "redirect:/profile";

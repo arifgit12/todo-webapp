@@ -5,10 +5,13 @@
     <br />
     <div class="row">
         <div class="col-md-6 col-md-offset-3 ">
+            <c:if test="${message != null}">
+                <p class="text-danger">${message}</p>
+            </c:if>
             <div class="card">
                 <div class="card-header">Edit Profile</div>
                 <div class="card-body">
-                    <form:form method="POST" modelAttribute="profile">
+                    <form:form method="POST" modelAttribute="profile" enctype="multipart/form-data">
                         <span class="text-warning">${error}</span>
                         <br />
                         <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -26,8 +29,11 @@
                             <form:input type="text" path="description" class="form-control" required="required" />
                             <form:errors path="description" cssClass="text-warning"></form:errors>
                         </div>
+                        <div class="form-group">
+                            <label>Avatar</label>
+                            <input type="file" name="imageFile" class="form-control" />
+                        </div>
                         <br />
-                        Avatar:
                         <button type="submit" class="btn btn-success">Update</button>
                         <a role="button" class="btn btn-warning" href="<c:url value="/profile"/>">Cancel</a>
                     </form:form>
