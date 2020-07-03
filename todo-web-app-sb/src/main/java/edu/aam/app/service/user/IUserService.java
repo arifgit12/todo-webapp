@@ -13,6 +13,7 @@ public interface IUserService {
     List<Todo> getTodoByUserName(String userName);
     Todo getTodoByUserName(String userName, Long todoId);
     User createUser(UserDTO userDTO);
+    User updateUser(User user);
     void updatePassword(String email, String newPassword);
     User findUserByUserName(String username);
     User updateToken(String email, Boolean status);

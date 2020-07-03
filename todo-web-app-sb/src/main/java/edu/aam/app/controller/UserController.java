@@ -5,11 +5,9 @@ import edu.aam.app.service.notification.INotificationService;
 import edu.aam.app.service.user.IUserService;
 import edu.aam.app.service.user.PasswordDTO;
 import edu.aam.app.service.user.UserDTO;
-import edu.aam.app.service.user.UserService;
 import edu.aam.app.util.AuthenticatedUser;
 import edu.aam.app.util.FilenameUtils;
 import edu.aam.app.validator.PasswordValidator;
-import edu.aam.app.validator.UserValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,14 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -80,12 +75,12 @@ public class UserController {
         ModelMap model,
         BindingResult bindingResult) {
 
-        UserDTO userDTO = modelMapper.map(userService.findUserByEmail(AuthenticatedUser.findLoggedInUsername()), UserDTO.class);
+        User user = userService.findUserByEmail(AuthenticatedUser.findLoggedInUsername());
 
         model.addAttribute("profile", userForm);
         model.addAttribute("notification_number_todo", notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername()));
 
-        if (file.isEmpty() && (userDTO.getAvatar() == null || userDTO.getAvatar().length() < 1)) {
+        if (file.isEmpty() && (user.getAvatar() == null || user.getAvatar().length() < 1)) {
             model.addAttribute("message", "Please select a file to upload");
             return "profile/edit";
         }
@@ -94,15 +89,24 @@ public class UserController {
             return "profile/edit";
         }
 
-        try {
-            String fileExt = FilenameUtils.getExtension(file.getOriginalFilename());
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
+        user.setFirstName(userForm.getFirstName());
+        user.setLastName(userForm.getLastName());
+        user.setDescription(userForm.getDescription());
 
+        try {
+            if (file.getOriginalFilename() != null && file.getOriginalFilename().length() > 1) {
+                byte[] bytes = file.getBytes();
+                String imageName = FilenameUtils.getRandomName() +
+                        "." + FilenameUtils.getExtension(file.getOriginalFilename());
+                Path path = Paths.get(UPLOADED_FOLDER + imageName);
+                Files.write(path, bytes);
+                user.setAvatar(imageName);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        userService.updateUser(user);
 
         return "redirect:/profile";
     }

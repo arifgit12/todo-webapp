@@ -14,7 +14,13 @@
                     <br />
                     Email: ${profile.email}
                     <br />
+                    Description: ${profile.description}
+                    <br />
                     Password: <a href="<c:url value="/update-password"/>" class="btn btn-success">Change Password</a>
+                    <br />
+                    <br />
+                    Avatar
+                    <img src="/image/${profile.avatar}" class="img-fluid" />
                 </div>
             </div>
         </div>

@@ -84,6 +84,12 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User updateUser(User user) {
+        user.setUpdatedDate(new Date());
+        return userRepository.save(user);
+    }
+
+    @Override
     public void updatePassword(String email, String newPassword) {
         User user = userRepository.findByEmail(email);
         user.setPassword(passwordEncoder.encode(newPassword));
