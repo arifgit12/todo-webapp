@@ -5,6 +5,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 
 import java.io.File;
+import java.util.UUID;
 
 public class FilenameUtils {
 
@@ -79,5 +80,10 @@ public class FilenameUtils {
         }
 
         return filename.substring(dotLastIndex + 1);
+    }
+
+    @NonNull
+    public static String getRandomName() {
+        return UUID.randomUUID().toString();
     }
 }
