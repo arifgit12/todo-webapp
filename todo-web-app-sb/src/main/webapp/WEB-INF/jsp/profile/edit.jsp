@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group ${status.error ? 'has-error' : ''}">
                             <label>Description</label>
-                            <form:input type="text" path="description" class="form-control" required="required" />
+                            <form:textarea type="text" path="description" class="form-control" required="required" />
                             <form:errors path="description" cssClass="text-warning"></form:errors>
                         </div>
                         <div class="form-group">
