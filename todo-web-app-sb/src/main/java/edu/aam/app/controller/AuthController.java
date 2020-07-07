@@ -2,12 +2,11 @@ package edu.aam.app.controller;
 
 import edu.aam.app.model.ConfirmationToken;
 import edu.aam.app.model.User;
-import edu.aam.app.repository.ConfirmationTokenRepository;
 import edu.aam.app.service.account.IAccountService;
 import edu.aam.app.service.email.IEmailService;
 import edu.aam.app.service.user.IUserService;
 import edu.aam.app.service.user.UserDTO;
-import edu.aam.app.util.ServerUtil;
+import edu.aam.app.util.ServerUtils;
 import edu.aam.app.validator.PasswordValidator;
 import edu.aam.app.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +77,7 @@ public class AuthController {
             return "register";
         }
 
-        emailService.sendRegisterEmail(user, ServerUtil.getServerUrl(request));
+        emailService.sendRegisterEmail(user, ServerUtils.getServerUrl(request));
 
         model.addAttribute("email", user.getEmail());
         return "successfulRegisteration";
@@ -119,7 +118,7 @@ public class AuthController {
     @RequestMapping(value = "/forgetpassword", method = RequestMethod.POST)
     public String forgetPassword(HttpServletRequest request, @ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
 
-        String appUrl = ServerUtil.getServerUrl(request) +"/login";
+        String appUrl = ServerUtils.getServerUrl(request) +"/login";
         emailService.sendForgetPasswordEmail(userForm.getEmail(), appUrl);
         return "redirect:/login";
     }
