@@ -1,12 +1,16 @@
 package edu.aam.app.controller;
 
+import edu.aam.app.model.Log;
 import edu.aam.app.model.User;
+import edu.aam.app.model.enums.LogType;
+import edu.aam.app.service.log.LogService;
 import edu.aam.app.service.notification.INotificationService;
 import edu.aam.app.service.user.IUserService;
 import edu.aam.app.service.user.PasswordDTO;
 import edu.aam.app.service.user.UserDTO;
 import edu.aam.app.util.AuthenticatedUser;
 import edu.aam.app.util.FilenameUtils;
+import edu.aam.app.util.ServletUtils;
 import edu.aam.app.validator.PasswordValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,6 +43,9 @@ public class UserController {
 
     @Autowired
     private INotificationService notificationService;
+
+    @Autowired
+    private LogService logService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -107,6 +113,13 @@ public class UserController {
         }
 
         userService.updateUser(user);
+
+        Log log = new Log();
+        log.setLogKey(user.getEmail());
+        log.setType(LogType.PROFILE_UPDATED);
+        log.setContent("Profile Updated");
+        log.setIpAddress(ServletUtils.getRequestIp());
+        logService.createLog(log);
 
         return "redirect:/profile";
     }
