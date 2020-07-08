@@ -23,6 +23,11 @@
 						<a class="nav-link" href="/users">Users</a>
 					</c:if>
 				</li>
+				<li class="nav-item">
+					<c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+						<a class="nav-link" href="/logs">Logs</a>
+					</c:if>
+				</li>
 			</c:if>
 		</ul>
 		<ul class="navbar-nav ml-auto">
