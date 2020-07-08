@@ -20,7 +20,7 @@ public class FileHandleController {
     @RequestMapping(value = "/image/{avatar}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getImage(@PathVariable String avatar) throws IOException {
-        File file = new File(UPLOADED_FOLDER + avatar);
+        File file = new File(UPLOADED_FOLDER, avatar);
         return Files.readAllBytes(file.toPath());
     }
 }
