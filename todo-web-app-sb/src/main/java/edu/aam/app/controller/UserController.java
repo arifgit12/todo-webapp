@@ -7,7 +7,7 @@ import edu.aam.app.service.log.LogService;
 import edu.aam.app.service.notification.INotificationService;
 import edu.aam.app.service.user.IUserService;
 import edu.aam.app.service.user.PasswordDTO;
-import edu.aam.app.service.user.UserDTO;
+import edu.aam.app.model.vm.UserDTO;
 import edu.aam.app.util.AuthenticatedUser;
 import edu.aam.app.util.FilenameUtils;
 import edu.aam.app.util.ServletUtils;

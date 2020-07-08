@@ -5,7 +5,7 @@ import edu.aam.app.model.User;
 import edu.aam.app.service.account.IAccountService;
 import edu.aam.app.service.email.IEmailService;
 import edu.aam.app.service.user.IUserService;
-import edu.aam.app.service.user.UserDTO;
+import edu.aam.app.model.vm.UserDTO;
 import edu.aam.app.util.ServerUtils;
 import edu.aam.app.validator.PasswordValidator;
 import edu.aam.app.validator.UserValidator;

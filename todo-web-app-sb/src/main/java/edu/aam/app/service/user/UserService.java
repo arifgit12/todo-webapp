@@ -4,6 +4,7 @@ import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 import edu.aam.app.model.User;
 import edu.aam.app.model.Role;
+import edu.aam.app.model.vm.UserDTO;
 import edu.aam.app.repository.RoleRepository;
 import edu.aam.app.repository.UserRepository;
 import edu.aam.app.util.RoleNames;

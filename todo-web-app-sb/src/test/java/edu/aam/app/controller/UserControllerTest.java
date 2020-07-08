@@ -3,7 +3,7 @@ package edu.aam.app.controller;
 import edu.aam.app.model.User;
 import edu.aam.app.repository.UserRepository;
 import edu.aam.app.service.notification.INotificationService;
-import edu.aam.app.service.user.UserDTO;
+import edu.aam.app.model.vm.UserDTO;
 import edu.aam.app.service.user.UserService;
 import org.junit.Before;
 import org.junit.Test;

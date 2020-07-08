@@ -1,4 +1,4 @@
-package edu.aam.app.service.user;
+package edu.aam.app.model.vm;
 
 public class UserDTO {
 

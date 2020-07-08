@@ -3,6 +3,7 @@ package edu.aam.app.service.user;
 import edu.aam.app.model.Task;
 import edu.aam.app.model.Todo;
 import edu.aam.app.model.User;
+import edu.aam.app.model.vm.UserDTO;
 
 import java.util.List;
 

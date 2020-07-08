@@ -1,6 +1,6 @@
 package edu.aam.app.validator;
 
-import edu.aam.app.service.user.UserDTO;
+import edu.aam.app.model.vm.UserDTO;
 import edu.aam.app.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
