@@ -2,9 +2,14 @@ package edu.aam.app.service.email;
 
 import com.sendgrid.*;
 import edu.aam.app.model.ConfirmationToken;
+import edu.aam.app.model.Log;
 import edu.aam.app.model.User;
+import edu.aam.app.model.enums.LogType;
 import edu.aam.app.service.account.IAccountService;
+import edu.aam.app.service.log.ILogService;
 import edu.aam.app.util.EmailConstants;
+import edu.aam.app.util.ServletUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,9 @@ public class SendGridEmailService implements IEmailService {
 
     @Autowired
     private IAccountService accountService;
+
+    @Autowired
+    private ILogService logService;
 
     @Value("${email.from}")
     private String emailFrom;
@@ -84,7 +92,12 @@ public class SendGridEmailService implements IEmailService {
             Response response = sendGridAPI.api(request);
             log.info("Send Mail Response Code: " + response.getStatusCode());
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Log log = new Log();
+            log.setLogKey(mail.getFrom().getName());
+            log.setType(LogType.SEND_GRID_MAIL_FAILED);
+            log.setContent(StringUtils.substring(ex.getMessage(), 0, 100));
+            log.setIpAddress(ServletUtils.getRequestIp());
+            logService.createLog(log);
         }
     }
 }

@@ -50,7 +50,9 @@ public enum LogType implements ValueEnum<Integer> {
     /**
      * Logged pre check
      */
-    LOGGED_PRE_CHECK(70);
+    LOGGED_PRE_CHECK(70),
+
+    SEND_GRID_MAIL_FAILED(80);
 
     private final Integer value;
 
