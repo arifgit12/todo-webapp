@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -51,7 +52,6 @@ public class LogController {
             page=1;
         }
 
-        model.addAttribute("notification_number_todo", notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername()));
         model.addAttribute("maxPages", logPage.getTotalPages());
         model.addAttribute("page", page);
         model.addAttribute("logs", logs);
@@ -62,5 +62,10 @@ public class LogController {
     @GetMapping("latest")
     public List<LogDTO> pageLatest(@RequestParam(name = "top", defaultValue = "10") int top) {
         return null;
+    }
+
+    @ModelAttribute("notification_number_todo")
+    private int getNotificationNumber(){
+        return notificationService.countUnseenNotifications(AuthenticatedUser.findLoggedInUsername());
     }
 }
