@@ -10,7 +10,7 @@
 	<br>
 	<div class="card">
 		<div class="card-header">
-			<h3>List of TASK's</h3>
+			<h3>List of TASK's <span>(${tasks.size()})</span></h3>
 		</div>
 		<div class="card-body">
 			<table class="table table-striped">
