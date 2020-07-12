@@ -8,7 +8,7 @@
                 <c:if test="${task != null}">
                     <div class="panel-heading">Update TASK</div>
                     <div class="panel-body">
-                        <form:form action="update-task?taskId=${task.id}" method="post" modelAttribute="task">
+                        <form:form action="/update-task/${task.id}" method="post" modelAttribute="task">
                             <form:hidden path="id" />
                             <fieldset class="form-group">
                                 <form:label path="taskName">Task Name</form:label>
