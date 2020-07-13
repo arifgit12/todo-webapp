@@ -26,6 +26,7 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-success">Save</button>
+                                <a role="button" class="btn btn-warning" href="<c:url value="/list-tasks"/>">Cancel</a>
                             </form:form>
                         </div>
                     </div>
