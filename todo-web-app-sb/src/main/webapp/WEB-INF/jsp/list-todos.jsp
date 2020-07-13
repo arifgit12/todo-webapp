@@ -37,7 +37,7 @@
 							<td><fmt:formatDate value="${todo.targetDate}" pattern="dd/MM/yyyy" /></td>
 							<td>${todo.status}</td>
 							<td>
-								<a role="button" class="btn btn-warning" href="/todo?id=${todo.id}">View</a>
+								<a role="button" class="btn btn-warning" href="/todo/${todo.id}">View</a>
 							</td>
 						</tr>
 					</c:forEach>

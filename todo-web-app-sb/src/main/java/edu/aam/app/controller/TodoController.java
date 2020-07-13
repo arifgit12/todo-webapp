@@ -59,11 +59,11 @@ public class TodoController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 
-	@RequestMapping(value = "/todo", method = RequestMethod.GET)
-	public ModelAndView showTodo(@RequestParam Long id) {
+	@RequestMapping(value = "/todo/{todoId}", method = RequestMethod.GET)
+	public ModelAndView showTodo(@PathVariable Long todoId) {
 
 		ModelAndView modelAndView = new ModelAndView("todos/todo-details");
-		Todo todo = todoService.getTodo(id, AuthenticatedUser.findLoggedInUsername());
+		Todo todo = todoService.getTodo(todoId, AuthenticatedUser.findLoggedInUsername());
 		List<CommentViewModel> cvmList = new ArrayList<>();
 		if (todo != null) {
 			modelAndView.addObject("taskname", todo.getTaskList().getTaskName());
