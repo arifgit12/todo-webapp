@@ -141,6 +141,12 @@ public class TodoController {
 	@RequestMapping(value = "/update-todo", method = RequestMethod.GET)
 	public String showUpdateTodoPageByTask(@RequestParam long id, ModelMap model) {
 		Todo todo = todoService.getTodo(id);
+
+		if (todo == null ) {
+			model.put("taskNotFound", "Task Not Found");
+			return "todos/update-todo";
+		}
+
 		TodoViewModel todoViewModel = new TodoViewModel();
 		todoViewModel.setTodoId(todo.getId());
 		todoViewModel.setTaskId(todo.getTaskList().getId());

@@ -19,4 +19,7 @@ public interface TodoRepository extends JpaRepository<Todo, Long>{
 
 	@Query("from Todo td where td.taskList.user.email=:email AND td.status=:status order by td.targetDate DESC")
 	List<Todo> findTodoByEmailAndStatus(@Param("email")String email, @Param("status") Boolean status);
+
+	@Query("FROM Todo td WHERE td.id=:id")
+	Todo findTodoById(@Param("id") Long id);
 }

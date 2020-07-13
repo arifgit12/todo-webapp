@@ -30,7 +30,7 @@ public class TodoService implements ITodoService {
 
 	@Override
 	public Todo getTodo(Long id) {
-		return todoRepository.getOne(id);
+		return todoRepository.findTodoById(id);
 	}
 
 	@Override
