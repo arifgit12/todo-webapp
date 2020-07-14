@@ -4,12 +4,12 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3 ">
             <br />
-            Task Name: ${taskname}
             <c:choose>
                 <c:when test="${taskNotFound == null }">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Update TODO</div>
-                        <div class="panel-body">
+                    Task Name: ${taskname}
+                    <div class="card">
+                        <div class="card-header">Update TODO</div>
+                        <div class="card-body">
                             <form:form method="post" modelAttribute="todo">
                                 <form:hidden path="todoId" />
                                 <form hidden path="taskId" />
@@ -32,8 +32,14 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    ${taskNotFound}
-                    <br />
+                    <div class="card">
+                        <div class="card-header">
+                            Update TODO
+                        </div>
+                        <div class="card-body">
+                                ${taskNotFound}
+                        </div>
+                    </div>
                 </c:otherwise>
             </c:choose>
 
