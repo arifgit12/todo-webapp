@@ -15,6 +15,7 @@ import edu.aam.app.service.todo.ITodoService;
 import edu.aam.app.service.todo.TodoViewModel;
 import edu.aam.app.util.AuthenticatedUser;
 import edu.aam.app.validator.TodoValidator;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
@@ -41,6 +42,9 @@ public class TodoController {
 
 	@Autowired
 	INotificationService notificationService;
+
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@ModelAttribute("notification_number_todo")
 	private int getNotificationNumber() {
@@ -140,18 +144,14 @@ public class TodoController {
 
 	@RequestMapping(value = "/update-todo", method = RequestMethod.GET)
 	public String showUpdateTodoPageByTask(@RequestParam long id, ModelMap model) {
-		Todo todo = todoService.getTodo(id);
+		Todo todo = todoService.getTodo(id, AuthenticatedUser.findLoggedInUsername());
 
 		if (todo == null ) {
 			model.put("taskNotFound", "Todo( " + id + " ) Not Found");
 			return "todos/update-todo";
 		}
 
-		TodoViewModel todoViewModel = new TodoViewModel();
-		todoViewModel.setTodoId(todo.getId());
-		todoViewModel.setTaskId(todo.getTaskList().getId());
-		todoViewModel.setDescription(todo.getDescription());
-		todoViewModel.setTargetDate(todo.getTargetDate());
+		TodoViewModel todoViewModel = modelMapper.map(todo, TodoViewModel.class);
 		model.addAttribute("todo", todoViewModel);
 		model.put("taskname", todo.getTaskList().getTaskName());
 		return "todos/update-todo";
