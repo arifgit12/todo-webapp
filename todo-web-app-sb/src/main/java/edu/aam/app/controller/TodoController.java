@@ -142,25 +142,28 @@ public class TodoController {
 		return "redirect:/list-todos";
 	}
 
-	@RequestMapping(value = "/update-todo", method = RequestMethod.GET)
-	public String showUpdateTodoPageByTask(@RequestParam long id, ModelMap model) {
-		Todo todo = todoService.getTodo(id, AuthenticatedUser.findLoggedInUsername());
+	@RequestMapping(value = "/update-todo/{todoId}", method = RequestMethod.GET)
+	public String showUpdateTodoPageByTask(@PathVariable long todoId, ModelMap model) {
+		Todo todo = todoService.getTodo(todoId, AuthenticatedUser.findLoggedInUsername());
 
 		if (todo == null ) {
-			model.put("taskNotFound", "Todo( " + id + " ) Not Found");
+			model.put("taskNotFound", "Todo( " + todoId + " ) Not Found");
 			return "todos/update-todo";
 		}
 
 		TodoViewModel todoViewModel = modelMapper.map(todo, TodoViewModel.class);
+		todoViewModel.setTodoId(todo.getId());
 		model.addAttribute("todo", todoViewModel);
 		model.put("taskname", todo.getTaskList().getTaskName());
 		return "todos/update-todo";
 	}
 
-	@RequestMapping(value = "/update-todo", method = RequestMethod.POST)
-	public String updateTodoByTask(ModelMap model, @ModelAttribute("todo") TodoViewModel todoViewModel, BindingResult bindingResult) {
+	@RequestMapping(value = "/update-todo/{todoId}", method = RequestMethod.POST)
+	public String updateTodoByTask(@PathVariable long todoId, @ModelAttribute("todo") TodoViewModel todoViewModel,
+		   ModelMap model, BindingResult bindingResult) {
 
 		Todo todo = todoService.getTodo(todoViewModel.getTodoId());
+		todoViewModel.setTodoId(todo.getId());
 
 		todoValidator.validate(todoViewModel, bindingResult);
 

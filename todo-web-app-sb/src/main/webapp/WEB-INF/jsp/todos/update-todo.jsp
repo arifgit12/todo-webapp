@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="card-header">Update TODO</div>
                         <div class="card-body">
-                            <form:form method="post" modelAttribute="todo">
+                            <form:form method="post" action="/update-todo/${todoId}" modelAttribute="todo">
                                 <form:hidden path="todoId" />
                                 <form hidden path="taskId" />
                                 <div class="form-group ${status.error ? 'has-error' : ''}">

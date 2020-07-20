@@ -36,7 +36,7 @@
 									<a role="button" class="btn btn-warning disabled" href="/delete-todo?id=${todo.id}">Delete</a>
 								</c:if>
 								<c:if test = "${!todo.status}">
-									<a role="button" class="btn btn-success" href="/update-todo?id=${todo.id}">Update</a>
+									<a role="button" class="btn btn-success" href="/update-todo/${todo.id}">Update</a>
 									<a role="button" class="btn btn-warning" href="/delete-todo?id=${todo.id}">Delete</a>
 								</c:if>
 							</td>
