@@ -38,6 +38,9 @@ public class User {
     @Column(name = "updatedate")
     private Date updatedDate;
 
+    @Column(name = "lastPasswordReset")
+    private Date lastPasswordReset;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Task> taskLists = new ArrayList<>();
@@ -130,5 +133,17 @@ public class User {
     public void add(Task task) {
         task.setUser(this);
         this.taskLists.add(task);
+    }
+
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
+    public Date getLastPasswordReset() {
+        return lastPasswordReset;
+    }
+
+    public void setLastPasswordReset(Date lastPasswordReset) {
+        this.lastPasswordReset = lastPasswordReset;
     }
 }

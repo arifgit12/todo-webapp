@@ -88,6 +88,7 @@ public class UserService implements IUserService {
         User user = userRepository.findByEmail(email);
         user.setPassword(passwordEncoder.encode(newPassword));
         user.setUpdatedDate(new Date());
+        user.setLastPasswordReset(new Date());
         userRepository.save(user);
     }
 
