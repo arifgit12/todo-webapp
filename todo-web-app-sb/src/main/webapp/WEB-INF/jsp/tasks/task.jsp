@@ -23,6 +23,7 @@
 							<form:errors path="description" cssClass="text-warning" />
 						</fieldset>
 						<button type="submit" class="btn btn-success">Save</button>
+						<a class="btn btn-warning" href="/list-tasks">Cancel</a>
 					</form:form>
 				</div>
 			</div>
