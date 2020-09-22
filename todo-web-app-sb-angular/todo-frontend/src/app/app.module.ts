@@ -14,6 +14,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { WelcomeDataService } from './service/data/welcome-data.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpIntercepterBasicAuthService } from './service/http/http-intercepter-basic-auth.service';
+import { TodoComponent } from './todo/todo.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HttpIntercepterBasicAuthService } from './service/http/http-intercepter
     ListTodosComponent,
     MenuComponent,
     FooterComponent,
-    LogoutComponent
+    LogoutComponent,
+    TodoComponent
   ],
   imports: [
     BrowserModule,

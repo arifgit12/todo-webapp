@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TodoDataService } from '../service/data/todo-data.service';
 
 export class Todo {
   constructor(
@@ -18,9 +20,25 @@ export class Todo {
 })
 export class ListTodosComponent implements OnInit {
 
-  constructor() { }
+  todos: Todo[]
+  message: string
+
+
+  constructor(
+    private todoService:TodoDataService,
+    private router : Router
+  ) { }
 
   ngOnInit() {
+    this.refreshTodos();
   }
 
+  refreshTodos(){
+    this.todoService.retrieveAllTodos('in28minutes').subscribe(
+      response => {
+        console.log(response);
+        this.todos = response;
+      }
+    )
+  }
 }

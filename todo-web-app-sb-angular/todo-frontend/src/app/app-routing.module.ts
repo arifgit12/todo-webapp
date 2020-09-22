@@ -7,13 +7,15 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RouteGuardService } from './service/route-guard.service';
+import { TodoComponent } from './todo/todo.component';
 
 const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'welcome', component: WelcomeComponent, canActivate:[RouteGuardService] },
+    { path: 'welcome/:name', component: WelcomeComponent, canActivate:[RouteGuardService] },
     { path: 'todos', component: ListTodosComponent, canActivate:[RouteGuardService] },
     { path: 'logout', component: LogoutComponent, canActivate:[RouteGuardService] },
+    { path: 'todos/:id', component: TodoComponent, canActivate:[RouteGuardService] },
 
     { path: '**', component: ErrorComponent }
 ];

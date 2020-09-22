@@ -30,4 +30,15 @@ export class WelcomeComponent implements OnInit {
       }
     );
   }
+
+  getWelcomeMessageWithParameter() {
+    this.welcomeSerice.executeHelloWorldServiceWithPathVariable(this.name).subscribe(
+      (response) => {
+        this.welcomeMessageFromService = response.message;
+      },
+      (err) => {
+        this.welcomeMessageFromService = err.error.message
+      }
+    );
+  }
 }
