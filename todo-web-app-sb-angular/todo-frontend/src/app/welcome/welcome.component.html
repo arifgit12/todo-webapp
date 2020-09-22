@@ -1,5 +1,10 @@
-<p>
-  welcome to awesome apps!
-</p>
-<br />
-<a routerLink="/todos">Todos</a>
+
+<div class="container">
+  <h1>Welcome!</h1>
+  <a routerLink="/todos">Todos</a>
+</div>
+
+<div class="container" *ngIf="welcomeMessageFromService">
+  <H2>Your Customized Welcome Message</H2>
+  {{welcomeMessageFromService}}
+</div>

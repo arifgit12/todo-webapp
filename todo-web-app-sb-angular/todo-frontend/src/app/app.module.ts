@@ -11,6 +11,9 @@ import { ListTodosComponent } from './list-todos/list-todos.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { LogoutComponent } from './logout/logout.component';
+import { WelcomeDataService } from './service/data/welcome-data.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpIntercepterBasicAuthService } from './service/http/http-intercepter-basic-auth.service';
 
 @NgModule({
   declarations: [
@@ -26,9 +29,12 @@ import { LogoutComponent } from './logout/logout.component';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
