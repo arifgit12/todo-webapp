@@ -24,7 +24,7 @@ export class TodoComponent implements OnInit {
     this.todo = new Todo(this.id,'', false, new Date());
 
     if(this.id != -1) {
-      this.todoService.retrieveTodo('arifmondal', this.id)
+      this.todoService.retrieveTodo('dummy', this.id)
         .subscribe(
           (response) => {
             this.todo = response;
@@ -40,7 +40,7 @@ export class TodoComponent implements OnInit {
     console.log(this.todo);
     if(this.id === -1) {
       // create todo
-      this.todoService.createTodo('arifmondal', this.todo)
+      this.todoService.createTodo('dummy', this.todo)
         .subscribe(
           (response) => {
             console.log(response);
@@ -52,7 +52,7 @@ export class TodoComponent implements OnInit {
         );
     } else {
       // update todo
-      this.todoService.updateTodo('arifmondal', this.id, this.todo)
+      this.todoService.updateTodo('dummy', this.id, this.todo)
         .subscribe(
           (response) => {
             console.log(response);
