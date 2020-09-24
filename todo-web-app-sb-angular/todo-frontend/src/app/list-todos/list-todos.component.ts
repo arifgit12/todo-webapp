@@ -41,4 +41,27 @@ export class ListTodosComponent implements OnInit {
       }
     )
   }
+
+  addTodo() {
+    this.router.navigate(['todos',-1]);
+  }
+
+  deleteTodo(id) {
+    console.log(`delete todo ${id}`);
+    this.todoService.deleteTodo('arifmondal', id).subscribe(
+      (response) => {
+        console.log(response);
+        this.message = `Delete of Todo ${id} Successful!`;
+        this.refreshTodos();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  updateTodo(id) {
+    console.log(`update ${id}`);
+    this.router.navigate(['todos',id]);
+  }
 }
