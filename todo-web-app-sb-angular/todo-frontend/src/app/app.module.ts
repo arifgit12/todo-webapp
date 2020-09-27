@@ -35,7 +35,7 @@ import { TodoComponent } from './todo/todo.component';
     HttpClientModule
   ],
   providers: [
-    
+    {provide: HTTP_INTERCEPTORS, useClass: HttpIntercepterBasicAuthService, multi: true }
   ],
   bootstrap: [AppComponent]
 })
