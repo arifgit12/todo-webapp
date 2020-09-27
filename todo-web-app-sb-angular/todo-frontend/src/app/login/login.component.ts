@@ -16,8 +16,7 @@ export class LoginComponent implements OnInit {
   invalidLogin = false;
 
   constructor(private router: Router,
-              private jwtAuthenticationService: AuthenticationService,
-              private authenticationService: HardcodedAuthenticationService) { }
+              private jwtAuthenticationService: AuthenticationService) { }
 
   ngOnInit() {
     

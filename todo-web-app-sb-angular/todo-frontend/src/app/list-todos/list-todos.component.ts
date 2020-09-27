@@ -18,6 +18,7 @@ export class Todo {
   templateUrl: './list-todos.component.html',
   styleUrls: ['./list-todos.component.css']
 })
+
 export class ListTodosComponent implements OnInit {
 
   todos: Todo[]
